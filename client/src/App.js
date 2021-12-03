@@ -1,5 +1,6 @@
 import React from "react";
-import { Route } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
+import "./App.css";
 import Home from "./components/Home";
 import About from "./components/About";
 import Contact from "./components/Contact";
@@ -11,26 +12,13 @@ const App = () => {
   return (
     <>
       <Navbar />
-
-      <Route exact path="/">
-        <Home />
-      </Route>
-
-      <Route path="/about">
-        <About />
-      </Route>
-
-      <Route path="/contact">
-        <Contact />
-      </Route>
-
-      <Route path="/signin">
-        <Signin />
-      </Route>
-
-      <Route path="/signup">
-        <Signup />
-      </Route>
+      <Routes>
+        <Route exact path="/" element={<Home />} />
+        <Route exact path="/about" element={<About />} />
+        <Route exact path="/contact" element={<Contact />} />
+        <Route exact path="/signin" element={<Signin />} />
+        <Route exact path="/signup" element={<Signup />} />
+      </Routes>
     </>
   );
 };
