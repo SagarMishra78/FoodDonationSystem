@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import validate from "./validateInfo";
 import useForm from "./useForm";
 
@@ -6,66 +7,77 @@ const Signup = () => {
   const { handleChange, handleSubmit, values, errors } = useForm(validate);
 
   return (
-    <div className="form-content-right">
-      <form onSubmit={handleSubmit} className="form" noValidate>
-        <h1>SignUp</h1>
-        <div className="form-inputs">
-          <label className="form-label">Username</label>
+    <div className="formCenter">
+      <form onSubmit={handleSubmit} className="formFields" noValidate>
+        <div className="formField">
+          <label className="formFieldLabel" htmlFor="name">
+            Full Name
+          </label>
           <input
-            className="form-input"
             type="text"
-            name="username"
-            placeholder="Enter your username"
-            value={values.username}
+            id="name"
+            className="formFieldInput"
+            placeholder="Enter your full name"
+            name="name"
+            value={values.name}
             onChange={handleChange}
           />
-          {errors.username && <p>{errors.username}</p>}
+          {errors.name && <p>{errors.name}</p>}
         </div>
-        <div className="form-inputs">
-          <label className="form-label">Email</label>
+        <div className="formField">
+          <label className="formFieldLabel" htmlFor="email">
+            E-Mail Address
+          </label>
           <input
-            className="form-input"
             type="email"
-            name="email"
+            id="email"
+            className="formFieldInput"
             placeholder="Enter your email"
+            name="email"
             value={values.email}
             onChange={handleChange}
           />
           {errors.email && <p>{errors.email}</p>}
         </div>
-        <div className="form-inputs">
-          <label className="form-label">Password</label>
+        <div className="formField">
+          <label className="formFieldLabel" htmlFor="password">
+            Password
+          </label>
           <input
-            className="form-input"
             type="password"
-            name="password"
+            id="password"
+            className="formFieldInput"
             placeholder="Enter your password"
+            name="password"
             value={values.password}
             onChange={handleChange}
           />
           {errors.password && <p>{errors.password}</p>}
         </div>
-        <div className="form-inputs">
-          <label className="form-label">Confirm Password</label>
+        <div className="formField">
+          <label className="formFieldLabel" htmlFor="password">
+            Confirm Password
+          </label>
           <input
-            className="form-input"
             type="password"
-            name="password2"
-            placeholder="Confirm your password"
-            value={values.password2}
+            id="cpassword"
+            className="formFieldInput"
+            placeholder="Enter your password"
+            name="cpassword"
+            value={values.cpassword}
             onChange={handleChange}
           />
-          {errors.password2 && <p>{errors.password2}</p>}
+          {errors.cpassword && <p>{errors.cpassword}</p>}
         </div>
-        <button className="form-input-btn" type="submit">
-          Sign up
-        </button>
-        <span className="form-input-login">
-          Already have an account? Login <a href="#">here</a>
-        </span>
+
+        <div className="formField">
+          <button className="formFieldButton">Sign Up</button>{" "}
+          <Link to="/signin" className="formFieldLink">
+            I'm already member
+          </Link>
+        </div>
       </form>
     </div>
   );
 };
-
 export default Signup;

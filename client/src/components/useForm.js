@@ -3,10 +3,10 @@ import "../App.css";
 
 const useForm = (validate) => {
   const [values, setValues] = useState({
-    username: "",
+    name: "",
     email: "",
     password: "",
-    password2: "",
+    cpassword: "",
   });
 
   const [errors, setErrors] = useState({});
