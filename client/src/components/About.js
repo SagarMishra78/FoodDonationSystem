@@ -13,10 +13,10 @@ const About = () => {
           </p>
         </div>
         <div className="about_right">
-          <img src={aboutimg} />
+          <img src={aboutimg} alt="about" />
         </div>
       </div>
-      <img src={stats} style={{ width: "100%" }} />
+      <img src={stats} alt="about" style={{ width: "100%" }} />
     </div>
   );
 };

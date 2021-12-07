@@ -17,7 +17,7 @@ export default function validateInfo(values) {
     errors.phone = "Please Enter mobile number";
   } else if (!/^[0-9\b]+$/.test(values.phone)) {
     errors.phone = "Invalid Phone number"
-  } else if (values.phone.length != 10) {
+  } else if (values.phone.length !== 10) {
     errors.phone = "Invalid"
   }
 

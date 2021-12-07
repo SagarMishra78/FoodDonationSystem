@@ -4,8 +4,7 @@ import validate from "./validateInfo";
 import useForm from "./useForm";
 
 const Signup = () => {
-  const { handleChange, handleSubmit, values, errors } =
-    useForm(validate);
+  const { handleChange, handleSubmit, values, errors } = useForm(validate);
 
   const [user, setUser] = useState({
     name: "",
@@ -16,19 +15,51 @@ const Signup = () => {
     cpassword: "",
   });
 
-  let name, value;
   const handleInputs = (e) => {
-    name = e.target.name;
-    value = e.target.value;
+    const { name, value } = e.target;
     setUser({
       ...user,
       [name]: value,
     });
   };
 
+  const PostData = async (e) => {
+    e.preventDefault();
+
+    const { name, email, phone, address, password, cpassword } = user;
+
+    const res = await fetch("/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name,
+        email,
+        phone,
+        address,
+        password,
+        cpassword,
+      }),
+    });
+    const data = await res.json();
+    if(data.status === 422 || !data) {
+      window.alert("Failed")
+      console.log("Failed")
+    } else {
+      window.alert("Success")
+      console.log("Success")
+    }
+  };
+
   return (
     <div className="formCenter">
-      <form onSubmit={handleSubmit} className="formFields" noValidate>
+      <form
+        method="POST"
+        onSubmit={handleSubmit}
+        className="formFields"
+        noValidate
+      >
         <h2 className="title">SignUp</h2>
         <div className="formField">
           <label className="formFieldLabel" htmlFor="name">
@@ -40,6 +71,7 @@ const Signup = () => {
             className="formFieldInput"
             placeholder="Enter your full name"
             name="name"
+            autoComplete="off"
             value={(values.name, user.name)}
             onChange={(handleChange, handleInputs)}
           />
@@ -55,6 +87,7 @@ const Signup = () => {
             className="formFieldInput"
             placeholder="Enter your email"
             name="email"
+            autoComplete="off"
             value={(values.email, user.email)}
             onChange={(handleChange, handleInputs)}
           />
@@ -70,6 +103,7 @@ const Signup = () => {
             className="formFieldInput"
             placeholder="Enter your Phone Number"
             name="phone"
+            autoComplete="off"
             value={(values.phone, user.phone)}
             onChange={(handleChange, handleInputs)}
           />
@@ -85,6 +119,7 @@ const Signup = () => {
             className="formFieldInput"
             placeholder="Enter Address"
             name="address"
+            autoComplete="off"
             value={(values.address, user.address)}
             onChange={(handleChange, handleInputs)}
           />
@@ -100,6 +135,7 @@ const Signup = () => {
             className="formFieldInput"
             placeholder="Enter your password"
             name="password"
+            autoComplete="off"
             value={(values.password, user.password)}
             onChange={(handleChange, handleInputs)}
           />
@@ -115,6 +151,7 @@ const Signup = () => {
             className="formFieldInput"
             placeholder="Enter your password"
             name="cpassword"
+            autoComplete="off"
             value={(values.cpassword, user.cpassword)}
             onChange={(handleChange, handleInputs)}
           />
@@ -122,7 +159,9 @@ const Signup = () => {
         </div>
 
         <div className="formField">
-          <button className="formFieldButton">Sign Up</button>{" "}
+          <button className="formFieldButton" onClick={PostData}>
+            Sign Up
+          </button>{" "}
           <Link to="/signin" className="formFieldLink">
             I'm already member
           </Link>
