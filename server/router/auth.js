@@ -12,8 +12,8 @@ router.get("/", (req, res) => {
 });
 
 router.post("/signup", async (req, res) => {
-  const { name, email, phone, password, cpassword } = req.body;
-  if (!name || !email || !phone || !password || !cpassword) {
+  const { name, email, phone,address, password, cpassword } = req.body;
+  if (!name || !email || !phone || !address || !password || !cpassword) {
     return res.status(422).json({ error: "Required Field" });
   }
 
@@ -28,6 +28,7 @@ router.post("/signup", async (req, res) => {
         name,
         email,
         phone,
+        address,
         password,
         cpassword,
       });

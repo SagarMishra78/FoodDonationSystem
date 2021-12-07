@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import validate from "./validateInfo";
 import useForm from "./useForm";
 
 const Signup = () => {
+  const Navigate = useNavigate();
   const { handleChange, handleSubmit, values, errors } = useForm(validate);
 
   const [user, setUser] = useState({
@@ -23,9 +24,7 @@ const Signup = () => {
     });
   };
 
-  const PostData = async (e) => {
-    e.preventDefault();
-
+  const PostData = async () => {
     const { name, email, phone, address, password, cpassword } = user;
 
     const res = await fetch("/signup", {
@@ -43,12 +42,14 @@ const Signup = () => {
       }),
     });
     const data = await res.json();
-    if(data.status === 422 || !data) {
-      window.alert("Failed")
-      console.log("Failed")
+    if (data.status === 422 || !data) {
+      window.alert("Failed");
+      console.log("Failed");
     } else {
-      window.alert("Success")
-      console.log("Success")
+      window.alert("Success");
+      console.log("Success");
+
+      Navigate("/signin");
     }
   };
 
