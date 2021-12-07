@@ -1,11 +1,23 @@
-import React from 'react'
+import React from "react";
+import aboutimg from "../images/aboutUs.jpg";
+import stats from "../images/bg-stats.jpg";
 
 const About = () => {
-    return (
-        <div>
-            <h1>Welcome to About Us Page</h1>
+  return (
+    <div>
+      <div id="aboutus" className="about_con">
+        <div className="about_left">
+          <h1>About NGO Foundation</h1>
+          <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat impedit voluptatum architecto eaque eveniet explicabo in, tempora voluptates odio exercitationem natus fuga dolore ratione corporis quae optio, officiis a. Inventore porro, ex deleniti cumque dolorem eaque adipisci officia totam, ratione, quibusdam iure sapiente! Omnis illo quas officiis labore totam inventore.
+          </p>
         </div>
-    )
-}
-
-export default About
+        <div className="about_right">
+          <img src={aboutimg} />
+        </div>
+      </div>
+      <img src={stats} style={{ width: "100%" }} />
+    </div>
+  );
+};
+export default About;

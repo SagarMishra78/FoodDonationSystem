@@ -1,80 +1,56 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import validate from "./validateInfo";
+import useForm from "./useForm";
 
-class Signin extends Component {
-  constructor() {
-    super();
+const Signin = () => {
+  const { handleChange, handleSubmit, values, errors } = useForm(validate);
 
-    this.state = {
-      email: "",
-      password: "",
-    };
+  return (
+    <div className="formCenter">
+      <form className="formFields" onSubmit={handleSubmit} noValidate>
+      <h2 className="title">SignIn</h2>
+        <div className="formField">
+          <label className="formFieldLabel" htmlFor="email">
+            E-Mail Address
+          </label>
+          <input
+            type="email"
+            id="email"
+            className="formFieldInput"
+            placeholder="Enter your email"
+            name="email"
+            value={values.email}
+            onChange={handleChange}
+          />
+          {errors.email && <p>{errors.email}</p>}
+        </div>
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+        <div className="formField">
+          <label className="formFieldLabel" htmlFor="password">
+            Password
+          </label>
+          <input
+            type="password"
+            id="password"
+            className="formFieldInput"
+            placeholder="Enter your password"
+            name="password"
+            value={values.password}
+            onChange={handleChange}
+          />
+          {errors.password && <p>{errors.password}</p>}
+        </div>
 
-  handleChange(event) {
-    let target = event.target;
-    let value = target.type === "checkbox" ? target.checked : target.value;
-    let name = target.name;
-
-    this.setState({
-      [name]: value,
-    });
-  }
-
-  handleSubmit(event) {
-    event.preventDefault();
-
-    console.log("The form was submitted with the following data:");
-    console.log(this.state);
-  }
-
-  render() {
-    return (
-      <div className="formCenter">
-        <form className="formFields" onSubmit={this.handleSubmit}>
-          <div className="formField">
-            <label className="formFieldLabel" htmlFor="email">
-              E-Mail Address
-            </label>
-            <input
-              type="email"
-              id="email"
-              className="formFieldInput"
-              placeholder="Enter your email"
-              name="email"
-              value={this.state.email}
-              onChange={this.handleChange}
-            />
-          </div>
-
-          <div className="formField">
-            <label className="formFieldLabel" htmlFor="password">
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              className="formFieldInput"
-              placeholder="Enter your password"
-              name="password"
-              value={this.state.password}
-              onChange={this.handleChange}
-            />
-          </div>
-
-          <div className="formField">
-            <button className="formFieldButton">Sign In</button>{" "}
-            <Link to="/signup" className="formFieldLink">
-              Create an account
-            </Link>
-          </div>
-        </form>
-      </div>
-    );
-  }
-}
+        <div className="formField">
+          <button className="formFieldButton">Sign In</button>{" "}
+          <Link to="/signup" className="formFieldLink">
+            Create an account
+          </Link>
+        </div>
+      </form>
+    </div>
+  );
+};
 
 export default Signin;
