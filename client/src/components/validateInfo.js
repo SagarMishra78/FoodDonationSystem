@@ -3,7 +3,7 @@ import "../App.css";
 export default function validateInfo(values) {
   let errors = {};
 
-  if (!values.name.trim()) {
+  if (!values.name) {
     errors.name = "Please Enter Username";
   }
 

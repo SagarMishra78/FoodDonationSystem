@@ -1,31 +1,92 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import validate from "./validateInfo";
-import useForm from "./useForm";
+import { useState } from "react";
+import FormInput from "./FormInput";
 
 const Signup = () => {
-  const Navigate = useNavigate();
-  const { handleChange, handleSubmit, values, errors } = useForm(validate);
-
-  const [user, setUser] = useState({
+  const [values, setValues] = useState({
     name: "",
     email: "",
     phone: "",
-    address: "",
+    address:"",
     password: "",
     cpassword: "",
   });
 
-  const handleInputs = (e) => {
-    const { name, value } = e.target;
-    setUser({
-      ...user,
-      [name]: value,
-    });
+  const inputs = [
+    {
+      id: 1,
+      name: "name",
+      type: "text",
+      placeholder: "Username",
+      errorMessage:
+        "Username should be 3-16 characters and shouldn't include any special character!",
+      label: "Username",
+      pattern: "^[A-Za-z0-9]{3,16}$",
+      required: true,
+    },
+    {
+      id: 2,
+      name: "email",
+      type: "email",
+      placeholder: "Email",
+      errorMessage: "It should be a valid email address!",
+      label: "Email",
+      pattern: "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$",
+      required: true,
+    },
+    {
+      id: 3,
+      name: "phone",
+      type: "tel",
+      placeholder: "Phone Number",
+      errorMessage: "please enter valid phone number",
+      label: "Phone Number",
+      pattern: "[0-9]{10}",
+      required: true,
+    },
+    {
+      id: 4,
+      name: "address",
+      type: "text",
+      placeholder: "Address",
+      errorMessage: "Please Enter Address",
+      label: "Address",
+      required: true,
+    },
+    {
+      id: 5,
+      name: "password",
+      type: "password",
+      placeholder: "Password",
+      errorMessage:
+        "Password should be 8-20 characters and include at least 1 letter, 1 number and 1 special character!",
+      label: "Password",
+      pattern: `^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$`,
+      required: true,
+    },
+    {
+      id: 6,
+      name: "cpassword",
+      type: "password",
+      placeholder: "Confirm Password",
+      errorMessage: "Passwords don't match!",
+      label: "Confirm Password",
+      pattern: values.password,
+      required: true,
+    },
+  ];
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
   };
 
+  const onChange = (e) => {
+    setValues({ ...values, [e.target.name]: e.target.value });
+  };
+
+  // Connecting DB
+
   const PostData = async () => {
-    const { name, email, phone, address, password, cpassword } = user;
+    const { name, email, phone, address, password, cpassword } = values;
 
     const res = await fetch("/signup", {
       method: "POST",
@@ -41,134 +102,32 @@ const Signup = () => {
         cpassword,
       }),
     });
-    const data = await res.json();
-    if (data.status === 422 || !data) {
-      window.alert("Failed");
+    await res.json();
+    if (res.status === 422 || !res) {
+      window.alert("Failed to Register");
       console.log("Failed");
     } else {
-      window.alert("Success");
+      window.alert("Successfully Registered");
       console.log("Success");
-
-      Navigate("/signin");
     }
   };
 
   return (
-    <div className="formCenter">
-      <form
-        method="POST"
-        onSubmit={handleSubmit}
-        className="formFields"
-        noValidate
-      >
-        <h2 className="title">SignUp</h2>
-        <div className="formField">
-          <label className="formFieldLabel" htmlFor="name">
-            Full Name
-          </label>
-          <input
-            type="text"
-            id="name"
-            className="formFieldInput"
-            placeholder="Enter your full name"
-            name="name"
-            autoComplete="off"
-            value={(values.name, user.name)}
-            onChange={(handleChange, handleInputs)}
+    <div className="app">
+      <form onSubmit={handleSubmit}>
+        <h1>Register</h1>
+        {inputs.map((input) => (
+          <FormInput
+            key={input.id}
+            {...input}
+            value={values[input.name]}
+            onChange={onChange}
           />
-          {errors.name && <p>{errors.name}</p>}
-        </div>
-        <div className="formField">
-          <label className="formFieldLabel" htmlFor="email">
-            E-Mail Address
-          </label>
-          <input
-            type="email"
-            id="email"
-            className="formFieldInput"
-            placeholder="Enter your email"
-            name="email"
-            autoComplete="off"
-            value={(values.email, user.email)}
-            onChange={(handleChange, handleInputs)}
-          />
-          {errors.email && <p>{errors.email}</p>}
-        </div>
-        <div className="formField">
-          <label className="formFieldLabel" htmlFor="name">
-            Mobile Number
-          </label>
-          <input
-            type="text"
-            id="phone"
-            className="formFieldInput"
-            placeholder="Enter your Phone Number"
-            name="phone"
-            autoComplete="off"
-            value={(values.phone, user.phone)}
-            onChange={(handleChange, handleInputs)}
-          />
-          {errors.phone && <p>{errors.phone}</p>}
-        </div>
-        <div className="formField">
-          <label className="formFieldLabel" htmlFor="name">
-            Address
-          </label>
-          <input
-            type="text"
-            id="address"
-            className="formFieldInput"
-            placeholder="Enter Address"
-            name="address"
-            autoComplete="off"
-            value={(values.address, user.address)}
-            onChange={(handleChange, handleInputs)}
-          />
-          {errors.address && <p>{errors.address}</p>}
-        </div>
-        <div className="formField">
-          <label className="formFieldLabel" htmlFor="password">
-            Password
-          </label>
-          <input
-            type="password"
-            id="password"
-            className="formFieldInput"
-            placeholder="Enter your password"
-            name="password"
-            autoComplete="off"
-            value={(values.password, user.password)}
-            onChange={(handleChange, handleInputs)}
-          />
-          {errors.password && <p>{errors.password}</p>}
-        </div>
-        <div className="formField">
-          <label className="formFieldLabel" htmlFor="password">
-            Confirm Password
-          </label>
-          <input
-            type="password"
-            id="cpassword"
-            className="formFieldInput"
-            placeholder="Enter your password"
-            name="cpassword"
-            autoComplete="off"
-            value={(values.cpassword, user.cpassword)}
-            onChange={(handleChange, handleInputs)}
-          />
-          {errors.cpassword && <p>{errors.cpassword}</p>}
-        </div>
-
-        <div className="formField">
-          <button className="formFieldButton" onClick={PostData}>
-            Sign Up
-          </button>{" "}
-          <Link to="/signin" className="formFieldLink">
-            I'm already member
-          </Link>
-        </div>
+        ))}
+        <button onClick={PostData}>Submit</button>
       </form>
     </div>
   );
 };
+
 export default Signup;
