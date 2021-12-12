@@ -14,13 +14,13 @@ router.get("/", (req, res) => {
 router.post("/signup", async (req, res) => {
   const { name, email, phone,address, password, cpassword } = req.body;
   if (!name || !email || !phone || !address || !password || !cpassword) {
-    return res.status(422).json({ error: "Required Field" });
+    return res.status(428).json({ error: "Required Field" });
   }
 
   try {
     const userExist = await Register.findOne({ phone: phone });
     if (userExist) {
-      return res.status(422).json({ error: "User already registered" });
+      return res.status(406).json({ error: "User already registered" });
     } else if (password != cpassword) {
       return res.status(422).json({ error: "Password not matched" });
     } else {
@@ -48,7 +48,7 @@ router.post("/signin", async (req, res) => {
     const { phone, password } = req.body;
 
     if (!phone || !password) {
-      return res.status(400).json({ error: "Required Field" });
+      return res.status(428).json({ error: "Required Field" });
     }
 
     const userLogin = await Register.findOne({ phone: phone });

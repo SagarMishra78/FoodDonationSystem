@@ -1,56 +1,91 @@
-// import React from "react";
-// import { Link } from "react-router-dom";
-// import validate from "./validateInfo";
-// import useForm from "./useForm";
+import { useState } from "react";
+import FormInput from "./FormInput";
 
-// const Signin = () => {
-//   const { handleChange, handleSubmit, values, errors } = useForm(validate);
+const Signin = () => {
+  const [values, setValues] = useState({
+    phone: "",
+    password: "",
+  });
 
-//   return (
-//     <div className="formCenter">
-//       <form className="formFields" onSubmit={handleSubmit} noValidate>
-//       <h2 className="title">SignIn</h2>
-//         <div className="formField">
-//           <label className="formFieldLabel" htmlFor="email">
-//             E-Mail Address
-//           </label>
-//           <input
-//             type="email"
-//             id="email"
-//             className="formFieldInput"
-//             placeholder="Enter your email"
-//             name="email"
-//             value={values.email}
-//             onChange={handleChange}
-//           />
-//           {errors.email && <p>{errors.email}</p>}
-//         </div>
+  const inputs = [
+    {
+      id: 3,
+      name: "phone",
+      type: "tel",
+      placeholder: "Phone Number",
+      errorMessage: "please enter valid phone number",
+      label: "Phone Number",
+      pattern: "[0-9]{10}",
+      required: true,
+    },
+    {
+      id: 5,
+      name: "password",
+      type: "password",
+      placeholder: "Password",
+      errorMessage:
+        "Please enter Password",
+      label: "Password",
+      required: true,
+    },
+  ];
 
-//         <div className="formField">
-//           <label className="formFieldLabel" htmlFor="password">
-//             Password
-//           </label>
-//           <input
-//             type="password"
-//             id="password"
-//             className="formFieldInput"
-//             placeholder="Enter your password"
-//             name="password"
-//             value={values.password}
-//             onChange={handleChange}
-//           />
-//           {errors.password && <p>{errors.password}</p>}
-//         </div>
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
 
-//         <div className="formField">
-//           <button className="formFieldButton">Sign In</button>{" "}
-//           <Link to="/signup" className="formFieldLink">
-//             Create an account
-//           </Link>
-//         </div>
-//       </form>
-//     </div>
-//   );
-// };
+  const onChange = (e) => {
+    setValues({ ...values, [e.target.name]: e.target.value });
+  };
 
-// export default Signin;
+//   Login
+
+  const loginUser = async (e) => {
+
+    const { phone, password } = values;
+
+    const res = await fetch("/signin", {
+        method:"POST",
+        headers:{
+            "Content-Type" : "application/json"
+        },
+        body:JSON.stringify({
+            phone,
+            password,
+        })
+    });
+
+    await res.json();
+    if (res.status === 428) {
+        document.getElementById("para").innerHTML = "Please fill Data"
+        document.getElementById("para").style.color = 'red'
+    } else if(res.status === 400) {
+        document.getElementById("para").innerHTML = "Invalid Credentials"
+        document.getElementById("para").style.color = 'red'
+    } else {
+        document.getElementById("para").innerHTML = "Login Successfull!!"
+        document.getElementById("para").style.color = 'green'
+    }
+
+  }
+
+  return (
+    <div className="app">
+      <form onSubmit={handleSubmit}>
+        <h1>Login</h1>
+        <p id="para"></p>
+        {inputs.map((input) => (
+          <FormInput
+            key={input.id}
+            {...input}
+            value={values[input.name]}
+            onChange={onChange}
+          />
+        ))}
+        <button className="buttonLR" onClick={loginUser}>Submit</button>
+      </form>
+    </div>
+  );
+};
+
+export default Signin;

@@ -1,12 +1,14 @@
 import { useState } from "react";
 import FormInput from "./FormInput";
+import { Link, useNavigate } from "react-router-dom";
 
 const Signup = () => {
+  const Navigate = useNavigate();
   const [values, setValues] = useState({
     name: "",
     email: "",
     phone: "",
-    address:"",
+    address: "",
     password: "",
     cpassword: "",
   });
@@ -30,7 +32,7 @@ const Signup = () => {
       placeholder: "Email",
       errorMessage: "It should be a valid email address!",
       label: "Email",
-      pattern: "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$",
+      pattern: "[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$",
       required: true,
     },
     {
@@ -103,12 +105,16 @@ const Signup = () => {
       }),
     });
     await res.json();
-    if (res.status === 422 || !res) {
-      window.alert("Failed to Register");
-      console.log("Failed");
+    if (res.status === 428) {
+      document.getElementById("para").innerHTML = "Please Fill Data";
+    } else if (res.status === 422) {
+      document.getElementById("para").innerHTML = "Failed to Register";
+    } else if (res.status === 406) {
+      document.getElementById("para").innerHTML = "User Already Registered";
     } else {
-      window.alert("Successfully Registered");
-      console.log("Success");
+      document.getElementById("para").innerHTML = "Registered Successfully!!";
+      document.getElementById("link").innerHTML = "Click Here to Login...";
+      // Navigate("/signin");
     }
   };
 
@@ -116,6 +122,8 @@ const Signup = () => {
     <div className="app">
       <form onSubmit={handleSubmit}>
         <h1>Register</h1>
+        <p id="para" style={{color: "red"}}></p>
+        <Link id="link" to={"/signin"} style={{color: "green"}}></Link>
         {inputs.map((input) => (
           <FormInput
             key={input.id}
@@ -124,7 +132,9 @@ const Signup = () => {
             onChange={onChange}
           />
         ))}
-        <button onClick={PostData}>Submit</button>
+        <button className="buttonLR" onClick={PostData}>
+          Submit
+        </button>
       </form>
     </div>
   );
