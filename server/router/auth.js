@@ -4,6 +4,9 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const authenticate = require("../middleware/authenticate");
+const cookieParser = require("cookie-parser");
+
+router.use(cookieParser());
 
 // DB Connection
 require("../db/conn");
@@ -37,6 +40,8 @@ router.post("/signup", async (req, res) => {
         cpassword,
       });
 
+      const token = await register.generateAuthToken();
+
       await register.save();
 
       res.status(201).json({ message: "Registered Successfully" });
@@ -61,8 +66,7 @@ router.post("/signin", async (req, res) => {
     if (userLogin) {
       const isMatch = await bcrypt.compare(password, userLogin.password);
 
-      token = await userLogin.generateAuthToken();
-      console.log(token);
+      const token = await userLogin.generateAuthToken();
 
       res.cookie("jwtoken", token, {
         expires: new Date(Date.now() + 2592000000),

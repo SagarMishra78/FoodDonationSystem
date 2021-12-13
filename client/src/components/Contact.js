@@ -43,7 +43,7 @@ const Contact = () => {
       required: true,
     },
     {
-      id: 1,
+      id: 4,
       name: "subject",
       type: "text",
       placeholder: "Enter subject here...",
@@ -52,7 +52,7 @@ const Contact = () => {
       required: true,
     },
     {
-      id: 1,
+      id: 5,
       name: "desc",
       type: "text",
       placeholder: "How may I help you.....",
