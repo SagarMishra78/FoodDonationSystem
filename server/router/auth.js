@@ -3,16 +3,20 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const authenticate = require("../middleware/authenticate");
 
+// DB Connection
 require("../db/conn");
 const Register = require("../model/userschema");
 
+// Home Page
 router.get("/", (req, res) => {
   res.send(`Hello, Welcome to Home Page`);
 });
 
+// Signup Page
 router.post("/signup", async (req, res) => {
-  const { name, email, phone,address, password, cpassword } = req.body;
+  const { name, email, phone, address, password, cpassword } = req.body;
   if (!name || !email || !phone || !address || !password || !cpassword) {
     return res.status(428).json({ error: "Required Field" });
   }
@@ -42,6 +46,7 @@ router.post("/signup", async (req, res) => {
   }
 });
 
+// Signin Page
 router.post("/signin", async (req, res) => {
   try {
     let token;
@@ -75,6 +80,11 @@ router.post("/signin", async (req, res) => {
   } catch (err) {
     console.log(err);
   }
+});
+
+// About Page
+router.get("/about", authenticate, (req, res) => {
+  res.send(req.rootUser);
 });
 
 module.exports = router;
