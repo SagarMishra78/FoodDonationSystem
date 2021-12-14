@@ -1,7 +1,10 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import FormInput from "./FormInput";
+import { userContext } from "../App";
 
 const Signin = () => {
+  const { state, dispatch } = useContext(userContext);
+
   const [values, setValues] = useState({
     phone: "",
     password: "",
@@ -23,8 +26,7 @@ const Signin = () => {
       name: "password",
       type: "password",
       placeholder: "Password",
-      errorMessage:
-        "Please enter Password",
+      errorMessage: "Please enter Password",
       label: "Password",
       required: true,
     },
@@ -38,36 +40,35 @@ const Signin = () => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
 
-//   Login
+  //   Login
 
   const loginUser = async (e) => {
-
     const { phone, password } = values;
 
     const res = await fetch("/signin", {
-        method:"POST",
-        headers:{
-            "Content-Type" : "application/json"
-        },
-        body:JSON.stringify({
-            phone,
-            password,
-        })
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        phone,
+        password,
+      }),
     });
 
     await res.json();
     if (res.status === 428) {
-        document.getElementById("para").innerHTML = "Please fill Data"
-        document.getElementById("para").style.color = 'red'
-    } else if(res.status === 400) {
-        document.getElementById("para").innerHTML = "Invalid Credentials"
-        document.getElementById("para").style.color = 'red'
+      document.getElementById("para").innerHTML = "Please fill Data";
+      document.getElementById("para").style.color = "red";
+    } else if (res.status === 400) {
+      document.getElementById("para").innerHTML = "Invalid Credentials";
+      document.getElementById("para").style.color = "red";
     } else {
-        document.getElementById("para").innerHTML = "Login Successfull!!"
-        document.getElementById("para").style.color = 'green'
+      dispatch({ type: "USER", payload:true });
+      document.getElementById("para").innerHTML = "Login Successfull!!";
+      document.getElementById("para").style.color = "green";
     }
-
-  }
+  };
 
   return (
     <div className="app">
@@ -82,7 +83,9 @@ const Signin = () => {
             onChange={onChange}
           />
         ))}
-        <button className="buttonLR" onClick={loginUser}>Submit</button>
+        <button className="buttonLR" onClick={loginUser}>
+          Submit
+        </button>
       </form>
     </div>
   );

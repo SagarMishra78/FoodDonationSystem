@@ -91,4 +91,13 @@ router.get("/about", authenticate, (req, res) => {
   res.send(req.rootUser);
 });
 
+// Logout
+router.get("/signout", authenticate, async (req, res) => {
+  try {
+    res.clearCookie("jwtoken", {path:"/"});
+  } catch (err) {
+      res.status(500).send(err);
+  }
+})
+
 module.exports = router;
