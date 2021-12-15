@@ -9,6 +9,7 @@ import Signup from "./components/Signup";
 import Navbar from "./components/Navbar";
 import Signout from "./components/Signout";
 import { reducer, initialState } from "./reducer/useReducer";
+import OtpForm from "./components/OtpForm";
 
 export const userContext = createContext();
 
@@ -25,6 +26,7 @@ const App = () => {
           <Route exact path="/contact" element={<Contact />} />
           <Route exact path="/signin" element={<Signin />} />
           <Route exact path="/signup" element={<Signup />} />
+          <Route exact path="/resetPassword" element={<OtpForm />} />
           <Route exact path="/signout" element={<Signout />} />
         </Routes>
       </userContext.Provider>

@@ -1,4 +1,5 @@
-import { useState, useContext } from "react";
+import React, { useState, useContext } from "react";
+import { Link } from "react-router-dom";
 import FormInput from "./FormInput";
 import { userContext } from "../App";
 
@@ -12,7 +13,7 @@ const Signin = () => {
 
   const inputs = [
     {
-      id: 3,
+      id: 1,
       name: "phone",
       type: "tel",
       placeholder: "Phone Number",
@@ -22,7 +23,7 @@ const Signin = () => {
       required: true,
     },
     {
-      id: 5,
+      id: 2,
       name: "password",
       type: "password",
       placeholder: "Password",
@@ -83,6 +84,7 @@ const Signin = () => {
             onChange={onChange}
           />
         ))}
+        <Link to={"/resetPassword"}>Forgot Password?</Link>
         <button className="buttonLR" onClick={loginUser}>
           Submit
         </button>

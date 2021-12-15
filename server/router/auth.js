@@ -5,12 +5,16 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const authenticate = require("../middleware/authenticate");
 const cookieParser = require("cookie-parser");
+var cors = require("cors")
 
+router.use(cors())
 router.use(cookieParser());
+router.use(express.urlencoded());
 
 // DB Connection
 require("../db/conn");
 const Register = require("../model/userschema");
+const Otp = require("../model/otp");
 
 // Home Page
 router.get("/", (req, res) => {
@@ -94,12 +98,84 @@ router.get("/about", authenticate, (req, res) => {
 // Logout
 router.get("/signout", authenticate, async (req, res) => {
   try {
-    res.clearCookie("jwtoken", {path:"/"});
+    res.clearCookie("jwtoken", { path: "/" });
     await req.rootUser.save();
     res.render("/signin");
   } catch (err) {
-      res.status(500).send(err);
+    res.status(500).send(err);
   }
-})
+});
+
+// Forget Password
+router.post("/sendEmail", async (req, res) => {
+  const { email } = req.body;
+  const data = await Register.findOne({ email: email });
+  const responseType = {};
+  if (data) {
+    let otpCode = Math.floor(Math.random() * 10000 + 1);
+    let otpData = new Otp({
+      email: email,
+      code: otpCode,
+      expireIn: new Date().getTime() + 300 * 1000,
+    });
+    let otpResponse = await otpData.save();
+    responseType.statusText = "Success";
+    mailer(email, `${otpCode}`);
+    responseType.message = "Code has been sent to your Email";
+  } else {
+    responseType.statusText = "Failed";
+    responseType.message = "Email Id not found";
+  }
+  res.status(200).json(responseType);
+});
+
+router.post("/changePassword", async (req, res) => {
+  let data = await Otp.find({email: req.body.email, code: req.body.otpCode});
+  const response = {};
+  if (data) {
+    let currentTime = new Date().getTime();
+    let timeDiff = data.expireIn - currentTime;
+    if (timeDiff < 0) {
+      response.message = "OTP time expired";
+      response.statusText = "OTP not valid";
+    } else {
+      let user = await Register.findOne({email: req.body.email});
+      user.password = req.body.password;
+      user.save();
+      response.message = "Password Changed Successfully";
+      response.statusText = "Success";
+    }
+  } else {
+    response.message = "Invalid Otp";
+    response.statusText = "error";
+  }
+  res.status(200).json(response);
+});
+
+const mailer = (email, otp) => {
+  var nodemailer = require("nodemailer");
+  var transporter = nodemailer.createTransport({
+    service: "gmail",
+    port: 587,
+    secure: false,
+    auth: {
+      user: "sagarmishra21-22@bhavans.ac.in",
+      pass: "S7@8Mishra",
+    },
+  });
+  var mailOptions = {
+    from: "sagarmishra21-22@bhavans.ac.in",
+    to: "smishra787898@gmail.com",
+    subject: "Password Reset",
+    text: `OTP to change your password is ${otp}`,
+  };
+  transporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log("email sent" + info.response);
+    }
+  });
+};
 
 module.exports = router;
