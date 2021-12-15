@@ -1,4 +1,4 @@
-export const initialState = null;
+export const initialState = 0;
 
 export const reducer  = (state, action) => {
     if(action.type === "USER"){

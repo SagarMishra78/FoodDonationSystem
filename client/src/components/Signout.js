@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { userContext } from "../App";
 
 const Signout = () => {
-
   const { state, dispatch } = useContext(userContext);
 
   const Navigate = useNavigate();
@@ -17,7 +16,7 @@ const Signout = () => {
       credentials: "include",
     })
       .then((res) => {
-        dispatch({ type: "USER", payload:false });
+        dispatch({ type: "USER", payload: false });
         Navigate("/signin", { replace: true });
         if (!res.status === 200) {
           const error = new Error(res.error);

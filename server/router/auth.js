@@ -95,6 +95,8 @@ router.get("/about", authenticate, (req, res) => {
 router.get("/signout", authenticate, async (req, res) => {
   try {
     res.clearCookie("jwtoken", {path:"/"});
+    await req.rootUser.save();
+    res.render("/signin");
   } catch (err) {
       res.status(500).send(err);
   }
