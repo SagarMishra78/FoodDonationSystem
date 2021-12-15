@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import { userContext } from "../App";
 
 const Navbar = () => {
-  const { state, dispatch } = useContext(userContext);
+  const { state } = useContext(userContext);
 
   const RenderMenu = () => {
     if (state) {

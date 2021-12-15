@@ -3,7 +3,7 @@ import FormInput from "./FormInput";
 import { userContext } from "../App";
 
 const Signin = () => {
-  const { state, dispatch } = useContext(userContext);
+  const { dispatch } = useContext(userContext);
 
   const [values, setValues] = useState({
     phone: "",

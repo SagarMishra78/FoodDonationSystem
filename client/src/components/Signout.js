@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { userContext } from "../App";
 
 const Signout = () => {
-  const { state, dispatch } = useContext(userContext);
+  const { dispatch } = useContext(userContext);
 
   const Navigate = useNavigate();
   useEffect(() => {
