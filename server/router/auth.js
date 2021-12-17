@@ -5,9 +5,9 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const authenticate = require("../middleware/authenticate");
 const cookieParser = require("cookie-parser");
-var cors = require("cors")
+var cors = require("cors");
 
-router.use(cors())
+router.use(cors());
 router.use(cookieParser());
 router.use(express.urlencoded());
 
@@ -29,7 +29,7 @@ router.post("/signup", async (req, res) => {
   }
 
   try {
-    const userExist = await Register.findOne({ phone: phone });
+    const userExist = await Register.findOne({ "$or": [ { email: email }, { phone: phone} ] });
     if (userExist) {
       return res.status(406).json({ error: "User already registered" });
     } else if (password != cpassword) {
@@ -122,34 +122,30 @@ router.post("/sendEmail", async (req, res) => {
     responseType.statusText = "Success";
     mailer(email, `${otpCode}`);
     responseType.message = "Code has been sent to your Email";
+    res.status(200).json(responseType);
   } else {
     responseType.statusText = "Failed";
     responseType.message = "Email Id not found";
+    res.status(400).json(responseType);
   }
-  res.status(200).json(responseType);
 });
 
 router.post("/changePassword", async (req, res) => {
-  let data = await Otp.find({email: req.body.email, code: req.body.otpCode});
+  let data = await Otp.findOne({ "$and": [ { email: req.body.email }, { code: req.body.code} ] });
+  console.log(req.body.code);
   const response = {};
   if (data) {
-    let currentTime = new Date().getTime();
-    let timeDiff = data.expireIn - currentTime;
-    if (timeDiff < 0) {
-      response.message = "OTP time expired";
-      response.statusText = "OTP not valid";
-    } else {
-      let user = await Register.findOne({email: req.body.email});
+      let user = await Register.findOne({ email: req.body.email });
       user.password = req.body.password;
       user.save();
       response.message = "Password Changed Successfully";
       response.statusText = "Success";
-    }
+      res.status(200).json(response);
   } else {
     response.message = "Invalid Otp";
     response.statusText = "error";
+    res.status(400).json(response);
   }
-  res.status(200).json(response);
 });
 
 const mailer = (email, otp) => {
