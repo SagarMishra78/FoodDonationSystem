@@ -6,14 +6,13 @@ toast.configure();
 
 const PasswordForm = (props) => {
   const [values, setValues] = useState({
-    email: "",
     code: "",
     password: "",
     cpassword: "",
   });
 
   const Confirm = async () => {
-    console.log(props);
+    Object.assign(values, props);
     const { code, email, password } = values;
     const res = await fetch("/changePassword", {
       method: "POST",
@@ -44,16 +43,6 @@ const PasswordForm = (props) => {
   const inputs = [
     {
       id: 1,
-      name: "email",
-      type: "email",
-      placeholder: "Email ID",
-      errorMessage: "please enter valid email id",
-      label: "Email",
-      pattern: "[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$",
-      required: true,
-    },
-    {
-      id: 2,
       name: "code",
       type: "text",
       inputMode: "numeric",
@@ -64,7 +53,7 @@ const PasswordForm = (props) => {
       required: true,
     },
     {
-      id: 3,
+      id: 2,
       name: "password",
       type: "password",
       placeholder: "Password",
@@ -75,7 +64,7 @@ const PasswordForm = (props) => {
       required: true,
     },
     {
-      id: 4,
+      id: 3,
       name: "cpassword",
       type: "password",
       placeholder: "Confirm Password",

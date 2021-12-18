@@ -23,7 +23,6 @@ const OtpForm = () => {
         email,
       }),
     });
-
     await res.json();
     if (res.status === 200) {
       toast.success("Code has been sent to your Email", {
@@ -78,7 +77,7 @@ const OtpForm = () => {
           </button>
         </form>
       ) : (
-        <PasswordForm email={inputs.email}/>
+        <PasswordForm email={value.email} />
       )}
     </div>
   );
