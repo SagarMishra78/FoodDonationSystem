@@ -13,6 +13,9 @@ const PasswordForm = (props) => {
     cpassword: "",
   });
 
+  const passwordpattern = `^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$`;
+  const cpasswordpattern = values.password;
+
   const Confirm = async () => {
     Object.assign(values, props);
     const { code, email, password, expireIn } = values;
@@ -25,7 +28,7 @@ const PasswordForm = (props) => {
         code,
         email,
         password,
-        expireIn
+        expireIn,
       }),
     });
 
@@ -34,20 +37,20 @@ const PasswordForm = (props) => {
       toast.success("Password Changed", {
         position: toast.POSITION.TOP_CENTER,
         autoClose: true,
-        hideProgressBar: true
+        hideProgressBar: true,
       });
       Navigate("/signin");
     } else if (res.status === 401) {
       toast.error("OTP expired", {
         position: toast.POSITION.TOP_CENTER,
         autoClose: true,
-        hideProgressBar: true
+        hideProgressBar: true,
       });
     } else {
       toast.error("OTP not valid", {
         position: toast.POSITION.TOP_CENTER,
         autoClose: true,
-        hideProgressBar: true
+        hideProgressBar: true,
       });
     }
   };
@@ -107,7 +110,14 @@ const PasswordForm = (props) => {
             onChange={onChange}
           />
         ))}
-        <button className="buttonLR" onClick={Confirm}>
+        <button
+          disabled={
+            !values.password.match(passwordpattern) ||
+            !values.cpassword.match(cpasswordpattern)
+          }
+          className="buttonLR"
+          onClick={Confirm}
+        >
           Confirm
         </button>
       </form>
