@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import FormInput from "./FormInput";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 toast.configure();
 
 const PasswordForm = (props) => {
+  const Navigate = useNavigate();
   const [values, setValues] = useState({
     code: "",
     password: "",
@@ -32,8 +34,14 @@ const PasswordForm = (props) => {
         position: toast.POSITION.TOP_CENTER,
         autoClose: false,
       });
+      Navigate("/signin");
+    } else if (res.status === 401) {
+      toast.error("OTP expired", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: false,
+      });
     } else {
-      toast.error("Password not changed", {
+      toast.error("OTP not valid", {
         position: toast.POSITION.TOP_CENTER,
         autoClose: false,
       });

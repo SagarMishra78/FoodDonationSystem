@@ -29,7 +29,9 @@ router.post("/signup", async (req, res) => {
   }
 
   try {
-    const userExist = await Register.findOne({ "$or": [ { email: email }, { phone: phone} ] });
+    const userExist = await Register.findOne({
+      $or: [{ email: email }, { phone: phone }],
+    });
     if (userExist) {
       return res.status(406).json({ error: "User already registered" });
     } else if (password != cpassword) {
@@ -131,16 +133,25 @@ router.post("/sendEmail", async (req, res) => {
 });
 
 router.post("/changePassword", async (req, res) => {
-  let data = await Otp.findOne({ "$and": [ { email: req.body.email }, { code: req.body.code} ] });
-  console.log(req.body.code);
+  let data = await Otp.findOne({
+    $and: [{ email: req.body.email }, { code: req.body.code }],
+  });
   const response = {};
   if (data) {
+    let currentTime = new Date().getTime();
+    let timeDiff = data.expireIn - currentTime;
+    if (timeDiff < 0) {
+      response.message = "Code expired";
+      response.statusText = "Code expired";
+      res.status(401).json(response);
+    } else {
       let user = await Register.findOne({ email: req.body.email });
       user.password = req.body.password;
       user.save();
       response.message = "Password Changed Successfully";
       response.statusText = "Success";
       res.status(200).json(response);
+    }
   } else {
     response.message = "Invalid Otp";
     response.statusText = "error";
