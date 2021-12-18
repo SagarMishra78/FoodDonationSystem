@@ -15,7 +15,7 @@ const PasswordForm = (props) => {
 
   const Confirm = async () => {
     Object.assign(values, props);
-    const { code, email, password } = values;
+    const { code, email, password, expireIn } = values;
     const res = await fetch("/changePassword", {
       method: "POST",
       headers: {
@@ -25,6 +25,7 @@ const PasswordForm = (props) => {
         code,
         email,
         password,
+        expireIn
       }),
     });
 
@@ -32,18 +33,21 @@ const PasswordForm = (props) => {
     if (res.status === 200) {
       toast.success("Password Changed", {
         position: toast.POSITION.TOP_CENTER,
-        autoClose: false,
+        autoClose: true,
+        hideProgressBar: true
       });
       Navigate("/signin");
     } else if (res.status === 401) {
       toast.error("OTP expired", {
         position: toast.POSITION.TOP_CENTER,
-        autoClose: false,
+        autoClose: true,
+        hideProgressBar: true
       });
     } else {
       toast.error("OTP not valid", {
         position: toast.POSITION.TOP_CENTER,
-        autoClose: false,
+        autoClose: true,
+        hideProgressBar: true
       });
     }
   };

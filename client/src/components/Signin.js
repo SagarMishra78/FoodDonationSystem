@@ -2,6 +2,9 @@ import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import FormInput from "./FormInput";
 import { userContext } from "../App";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+toast.configure();
 
 const Signin = () => {
   const { dispatch } = useContext(userContext);
@@ -59,15 +62,24 @@ const Signin = () => {
 
     await res.json();
     if (res.status === 428) {
-      document.getElementById("para").innerHTML = "Please fill Data";
-      document.getElementById("para").style.color = "red";
+      toast.warning("Please fill data", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: true,
+        hideProgressBar: true
+      });
     } else if (res.status === 400) {
-      document.getElementById("para").innerHTML = "Invalid Credentials";
-      document.getElementById("para").style.color = "red";
+      toast.error("Invalid Credentials", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: true,
+        hideProgressBar: true
+      });
     } else {
-      dispatch({ type: "USER", payload:true });
-      document.getElementById("para").innerHTML = "Login Successfull!!";
-      document.getElementById("para").style.color = "green";
+      dispatch({ type: "USER", payload: true });
+      toast.success("Logged in...", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: true,
+        hideProgressBar: true
+      });
     }
   };
 

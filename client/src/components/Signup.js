@@ -15,11 +15,11 @@ const Signup = () => {
     password: "",
     cpassword: "",
   });
-  const emailpattern= "[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$";
-  const namepattern= "^[A-Za-z0-9]{3,16}$";
-  const phonepattern= "[0-9]{10}";
-  const passwordpattern= `^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$`
-  const cpasswordpattern= values.password;
+  const emailpattern = "[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$";
+  const namepattern = "^[A-Za-z0-9]{3,16}$";
+  const phonepattern = "[0-9]{10}";
+  const passwordpattern = `^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$`;
+  const cpasswordpattern = values.password;
   const inputs = [
     {
       id: 1,
@@ -113,11 +113,23 @@ const Signup = () => {
     });
     await res.json();
     if (res.status === 422) {
-      document.getElementById("para").innerHTML = "Failed to Register";
+      toast.error("Failed to Register", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: true,
+        hideProgressBar: true
+      });
     } else if (res.status === 406) {
-      toast.error("User Already Registered");
+      toast.warning("User Already Registered", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: true,
+        hideProgressBar: true
+      });
     } else {
-      toast.success("Registered Successfully!!");
+      toast.success("Registered Successfully!!", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: true,
+        hideProgressBar: true
+      });
       Navigate("/signin");
     }
   };
@@ -126,8 +138,8 @@ const Signup = () => {
     <div className="app">
       <form onSubmit={handleSubmit}>
         <h1>Register</h1>
-        <p id="para" style={{color: "red"}}></p>
-        <Link id="link" to={"/signin"} style={{color: "green"}}></Link>
+        <p id="para" style={{ color: "red" }}></p>
+        <Link id="link" to={"/signin"} style={{ color: "green" }}></Link>
         {inputs.map((input) => (
           <FormInput
             key={input.id}
@@ -136,7 +148,17 @@ const Signup = () => {
             onChange={onChange}
           />
         ))}
-        <button disabled={!values.email.match(emailpattern) || !values.name.match(namepattern) || !values.phone.match(phonepattern) || !values.password.match(passwordpattern) || !values.cpassword.match(cpasswordpattern) } className="buttonLR" onClick={PostData}>
+        <button
+          disabled={
+            !values.email.match(emailpattern) ||
+            !values.name.match(namepattern) ||
+            !values.phone.match(phonepattern) ||
+            !values.password.match(passwordpattern) ||
+            !values.cpassword.match(cpasswordpattern)
+          }
+          className="buttonLR"
+          onClick={PostData}
+        >
           Submit
         </button>
       </form>

@@ -13,7 +13,7 @@ const OtpForm = () => {
   const [otpForm, showForm] = useState(true);
 
   const sendOtp = async () => {
-    const { email } = value;
+    const { email, expireIn } = value;
     const res = await fetch("/sendEmail", {
       method: "POST",
       headers: {
@@ -21,19 +21,26 @@ const OtpForm = () => {
       },
       body: JSON.stringify({
         email,
+        expireIn
       }),
     });
     await res.json();
     if (res.status === 200) {
       toast.success("Code has been sent to your Email", {
         position: toast.POSITION.TOP_CENTER,
+        autoClose: true,
+        hideProgressBar: true
+      });
+      toast.info("Code will expire in 5 minutes!", {
+        position: toast.POSITION.BOTTOM_RIGHT,
         autoClose: false,
       });
       showForm(false);
     } else {
       toast.error("Email id is not registered", {
         position: toast.POSITION.TOP_CENTER,
-        autoClose: false,
+        autoClose: true,
+        hideProgressBar: true
       });
     }
   };
