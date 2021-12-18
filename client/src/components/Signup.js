@@ -1,8 +1,12 @@
 import { useState } from "react";
 import FormInput from "./FormInput";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+toast.configure();
 
 const Signup = () => {
+  const Navigate = useNavigate();
   const [values, setValues] = useState({
     name: "",
     email: "",
@@ -11,7 +15,11 @@ const Signup = () => {
     password: "",
     cpassword: "",
   });
-
+  const emailpattern= "[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$";
+  const namepattern= "^[A-Za-z0-9]{3,16}$";
+  const phonepattern= "[0-9]{10}";
+  const passwordpattern= `^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$`
+  const cpasswordpattern= values.password;
   const inputs = [
     {
       id: 1,
@@ -76,8 +84,8 @@ const Signup = () => {
     },
   ];
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = (event) => {
+    event.preventDefault();
   };
 
   const onChange = (e) => {
@@ -104,16 +112,13 @@ const Signup = () => {
       }),
     });
     await res.json();
-    if (res.status === 428) {
-      document.getElementById("para").innerHTML = "Please Fill Data";
-    } else if (res.status === 422) {
+    if (res.status === 422) {
       document.getElementById("para").innerHTML = "Failed to Register";
     } else if (res.status === 406) {
-      document.getElementById("para").innerHTML = "User Already Registered";
+      toast.error("User Already Registered");
     } else {
-      document.getElementById("para").innerHTML = "Registered Successfully!!";
-      document.getElementById("link").innerHTML = "Click Here to Login...";
-      // Navigate("/signin");
+      toast.success("Registered Successfully!!");
+      Navigate("/signin");
     }
   };
 
@@ -131,7 +136,7 @@ const Signup = () => {
             onChange={onChange}
           />
         ))}
-        <button className="buttonLR" onClick={PostData}>
+        <button disabled={!values.email.match(emailpattern) || !values.name.match(namepattern) || !values.phone.match(phonepattern) || !values.password.match(passwordpattern) || !values.cpassword.match(cpasswordpattern) } className="buttonLR" onClick={PostData}>
           Submit
         </button>
       </form>
