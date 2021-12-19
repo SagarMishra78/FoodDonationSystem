@@ -15,7 +15,7 @@ const Signup = () => {
     password: "",
     cpassword: "",
   });
-  const emailpattern = "[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$";
+  const emailpattern = "[a-z0-9._%+-]+@[Gg][Mm][Aa][Ii][Ll]+.com$";
   const namepattern = "^[A-Za-z0-9]{3,16}$";
   const phonepattern = "[0-9]{10}";
   const passwordpattern = `^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$`;
@@ -39,7 +39,7 @@ const Signup = () => {
       placeholder: "Email",
       errorMessage: "It should be a valid email address!",
       label: "Email",
-      pattern: "[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$",
+      pattern: "[a-z0-9._%+-]+@[Gg][Mm][Aa][Ii][Ll]+.com$",
       required: true,
     },
     {
@@ -157,6 +157,7 @@ const Signup = () => {
             !values.cpassword.match(cpasswordpattern)
           }
           className="buttonLR"
+          id="sbtbtm"
           onClick={PostData}
         >
           Submit

@@ -166,13 +166,13 @@ const mailer = (email, otp) => {
     port: 587,
     secure: false,
     auth: {
-      user: "sagarmishra21-22@bhavans.ac.in",
-      pass: "S7@8Mishra",
+      user: process.env.EMAIL,
+      pass: process.env.EMAILPASSWORD,
     },
   });
   var mailOptions = {
     from: "sagarmishra21-22@bhavans.ac.in",
-    to: "smishra787898@gmail.com",
+    to: `${email}`,
     subject: "Password Reset",
     text: `OTP to change your password is ${otp}`,
   };

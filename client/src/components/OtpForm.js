@@ -10,6 +10,8 @@ const OtpForm = () => {
     email: "",
   });
 
+  const emailpattern = "[a-z0-9._%+-]+@[Gg][Mm][Aa][Ii][Ll]+.com$";
+
   const [otpForm, showForm] = useState(true);
 
   const sendOtp = async () => {
@@ -21,7 +23,7 @@ const OtpForm = () => {
       },
       body: JSON.stringify({
         email,
-        expireIn
+        expireIn,
       }),
     });
     await res.json();
@@ -29,7 +31,7 @@ const OtpForm = () => {
       toast.success("Code has been sent to your Email", {
         position: toast.POSITION.TOP_CENTER,
         autoClose: true,
-        hideProgressBar: true
+        hideProgressBar: true,
       });
       toast.info("Code will expire in 5 minutes!", {
         position: toast.POSITION.BOTTOM_RIGHT,
@@ -40,7 +42,7 @@ const OtpForm = () => {
       toast.error("Email id is not registered", {
         position: toast.POSITION.TOP_CENTER,
         autoClose: true,
-        hideProgressBar: true
+        hideProgressBar: true,
       });
     }
   };
@@ -53,7 +55,7 @@ const OtpForm = () => {
       placeholder: "Email ID",
       errorMessage: "please enter valid email id",
       label: "Email",
-      pattern: "[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$",
+      pattern: "[a-z0-9._%+-]+@[Gg][Mm][Aa][Ii][Ll]+.com$",
       required: true,
     },
   ];
@@ -79,7 +81,12 @@ const OtpForm = () => {
               onChange={onChange}
             />
           ))}
-          <button className="buttonLR" onClick={sendOtp}>
+          <button
+            disabled={!value.email.match(emailpattern)}
+            className="buttonLR"
+            id="sbtbtm"
+            onClick={sendOtp}
+          >
             Send OTP
           </button>
         </form>
