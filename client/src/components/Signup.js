@@ -16,7 +16,7 @@ const Signup = () => {
     cpassword: "",
   });
   const emailpattern = "[a-z0-9._%+-]+@[Gg][Mm][Aa][Ii][Ll]+.com$";
-  const namepattern = "^[A-Za-z0-9]{3,16}$";
+  const namepattern = "^[A-Za-z A-Za-z]{3,16}$";
   const phonepattern = "[0-9]{10}";
   const passwordpattern = `^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$`;
   const cpasswordpattern = values.password;
@@ -25,11 +25,11 @@ const Signup = () => {
       id: 1,
       name: "name",
       type: "text",
-      placeholder: "Username",
+      placeholder: "Enter your name...",
       errorMessage:
         "Username should be 3-16 characters and shouldn't include any special character!",
-      label: "Username",
-      pattern: "^[A-Za-z0-9]{3,16}$",
+        label: "Name",
+        pattern: "^[A-Za-z A-Za-z]{3,16}$",
       required: true,
     },
     {

@@ -15,6 +15,7 @@ router.use(express.urlencoded());
 require("../db/conn");
 const Register = require("../model/userschema");
 const Otp = require("../model/otp");
+const Contact = require("../model/usercontact");
 
 // Home Page
 router.get("/", (req, res) => {
@@ -95,6 +96,28 @@ router.post("/signin", async (req, res) => {
 // About Page
 router.get("/about", authenticate, (req, res) => {
   res.send(req.rootUser);
+});
+
+// Contact Page
+router.post("/contact", async (req, res) => {
+  try {
+    const { name, email, phone, subject, desc } = req.body;
+    if (!name || !email || !phone || !subject || !desc) {
+      res.json({ error: "Please fill data" });
+    } else {
+      const userContact = new Contact({
+        name,
+        email,
+        phone,
+        subject,
+        desc
+      });
+      await userContact.save();
+      res.status(201).json({ message: "message sent" });
+    }
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 // Logout
