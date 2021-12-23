@@ -197,3 +197,22 @@ Button#sbtbtm[disabled] {
   font-weight: 400;
   margin-left: 25px !important;
 }
+
+/* Home Page */
+.d-block{
+  height: 500px;
+}
+
+.caption{
+  color: black;
+  font-weight: bolder;
+}
+
+.btncard {
+  display: flex;
+  margin-top: 15px;
+}
+
+.card {
+  margin: auto;
+}

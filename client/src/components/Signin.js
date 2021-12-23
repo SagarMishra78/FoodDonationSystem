@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import FormInput from "./FormInput";
 import { userContext } from "../App";
 import { toast } from "react-toastify";
@@ -7,6 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 toast.configure();
 
 const Signin = () => {
+  const Navigate = useNavigate();
   const { dispatch } = useContext(userContext);
 
   const [values, setValues] = useState({
@@ -80,6 +81,7 @@ const Signin = () => {
         autoClose: true,
         hideProgressBar: true
       });
+      Navigate("/");
     }
   };
 
