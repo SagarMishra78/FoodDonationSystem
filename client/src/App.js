@@ -10,6 +10,7 @@ import Navbar from "./components/Navbar";
 import Signout from "./components/Signout";
 import { reducer, initialState } from "./reducer/useReducer";
 import OtpForm from "./components/OtpForm";
+import RequestDonation from "./components/RequestDonation";
 
 export const userContext = createContext();
 
@@ -22,6 +23,7 @@ const App = () => {
         <Navbar />
         <Routes>
           <Route exact path="/" element={<Home />} />
+          <Route exact path="/RequestDonation" element={<RequestDonation />} />
           <Route exact path="/about" element={<About />} />
           <Route exact path="/contact" element={<Contact />} />
           <Route exact path="/signin" element={<Signin />} />
