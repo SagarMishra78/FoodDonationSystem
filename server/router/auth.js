@@ -98,6 +98,11 @@ router.get("/about", authenticate, (req, res) => {
   res.send(req.rootUser);
 });
 
+// Request Page
+router.get("/requestdonation", authenticate, (req, res) => {
+  res.send(req.rootUser);
+});
+
 // Contact Page
 router.post("/contact", async (req, res) => {
   try {

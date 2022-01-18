@@ -63,6 +63,11 @@ span {
   display: none;
 }
 
+.MuiButton-label {
+  color: white;
+  font-weight: bold;
+}
+
 input:invalid[focused="true"] {
   border: 1px solid red;
 }
