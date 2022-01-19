@@ -16,6 +16,7 @@ require("../db/conn");
 const Register = require("../model/userschema");
 const Otp = require("../model/otp");
 const Contact = require("../model/usercontact");
+const Request = require("../model/requestFood")
 
 // Home Page
 router.get("/", (req, res) => {
@@ -98,9 +99,30 @@ router.get("/about", authenticate, (req, res) => {
   res.send(req.rootUser);
 });
 
-// Request Page
-router.get("/requestdonation", authenticate, (req, res) => {
+// Getting Data
+router.get("/getdata", authenticate, (req, res) => {
   res.send(req.rootUser);
+});
+
+// Request Page
+router.post("/requestdonation", authenticate, async (req, res) => {
+  try {
+    const { name, address, phone, addinfo } = req.body;
+    if (!addinfo) {
+      res.json({ error: "Please fill data" });
+    } else {
+      const requestFood = new Request({
+        name,
+        address,
+        phone,
+        addinfo,
+      });
+      await requestFood.save();
+      res.status(201).json({ message: "Request sent" });
+    }
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 // Contact Page
