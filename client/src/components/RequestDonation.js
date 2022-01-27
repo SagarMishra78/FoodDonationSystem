@@ -61,7 +61,7 @@ const RequestDonation = () => {
   const postData = async () => {
     const { name, address, phone, addinfo } = values;
 
-    const res = await fetch("/requestdonation", {
+    const response = await fetch("/requestdonation", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -73,15 +73,15 @@ const RequestDonation = () => {
         addinfo,
       }),
     });
-    await res.json();
-    if (res.status === 201) {
+    await response.json();
+    if (response.status === 201) {
       toast.success("Request sent", {
         position: toast.POSITION.TOP_CENTER,
         autoClose: true,
         hideProgressBar: true,
       });
       Navigate("/");
-    } else {
+    } else if (response.status === 428) {
       toast.error("Please fill all fields", {
         position: toast.POSITION.TOP_CENTER,
         autoClose: true,

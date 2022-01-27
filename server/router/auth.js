@@ -109,7 +109,7 @@ router.post("/requestdonation", authenticate, async (req, res) => {
   try {
     const { name, address, phone, addinfo } = req.body;
     if (!addinfo) {
-      res.json({ error: "Please fill data" });
+      res.status(428).json({ error: "Please fill data" });
     } else {
       const requestFood = new Request({
         name,
@@ -118,7 +118,7 @@ router.post("/requestdonation", authenticate, async (req, res) => {
         addinfo,
       });
       await requestFood.save();
-      res.status(201).json({ message: "Request sent" });
+      res.status(201).json({ message: "request sent" });
     }
   } catch (error) {
     console.log(error);
