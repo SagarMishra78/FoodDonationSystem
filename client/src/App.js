@@ -11,6 +11,8 @@ import Signout from "./components/Signout";
 import { reducer, initialState } from "./reducer/useReducer";
 import OtpForm from "./components/OtpForm";
 import RequestDonation from "./components/RequestDonation";
+import SignupModal from "./components/SignupModal";
+import { SignupOptions } from "./components/SignupOptions";
 
 export const userContext = createContext();
 
@@ -30,6 +32,8 @@ const App = () => {
           <Route exact path="/signup" element={<Signup />} />
           <Route exact path="/resetPassword" element={<OtpForm />} />
           <Route exact path="/signout" element={<Signout />} />
+          <Route exact path="/signupmodal" element={<SignupModal />} />
+          <Route exact path="/signupoptions" element={<SignupOptions />} />
         </Routes>
       </userContext.Provider>
     </>
