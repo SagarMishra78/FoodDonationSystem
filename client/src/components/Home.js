@@ -45,7 +45,7 @@ const Home = () => {
               bulk of the card's content.
             </p>
             <Link className="btn btn-primary" to={"/RequestDonation"}>
-              Request Donation
+              Request
             </Link>
           </div>
         </div>
