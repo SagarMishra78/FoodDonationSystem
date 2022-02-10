@@ -11,6 +11,7 @@ import Signout from "./components/Signout";
 import { reducer, initialState } from "./reducer/useReducer";
 import OtpForm from "./components/OtpForm";
 import RequestDonation from "./components/RequestDonation";
+import ConfirmDonation from "./components/ConfirmDonation";
 import SignupModal from "./components/SignupModal";
 import { SignupOptions } from "./components/SignupOptions";
 
@@ -26,6 +27,7 @@ const App = () => {
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route exact path="/RequestDonation" element={<RequestDonation />} />
+          <Route exact path="/ConfirmDonation" element={<ConfirmDonation />} />
           <Route exact path="/about" element={<About />} />
           <Route exact path="/contact" element={<Contact />} />
           <Route exact path="/signin" element={<Signin />} />

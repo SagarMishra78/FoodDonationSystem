@@ -8,7 +8,7 @@ import img1 from "../images/carousel-1.jpg";
 import img2 from "../images/carousel-2.jpg";
 import img3 from "../images/carousel-3.jpg";
 
-const Home = () => {
+const NGOHome = () => {
   return (
     <>
       {/* Carousel */}
@@ -56,7 +56,7 @@ const Home = () => {
               Some quick example text to build on the card title and make up the
               bulk of the card's content.
             </p>
-            <Link className="btn btn-primary" to={"/ConfirmDonation"}>
+            <Link className="btn btn-primary" to={"/"}>
               Confirm
             </Link>
           </div>
@@ -78,4 +78,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default NGOHome;
