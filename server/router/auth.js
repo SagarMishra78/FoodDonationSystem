@@ -16,7 +16,7 @@ require("../db/conn");
 const Register = require("../model/userschema");
 const Otp = require("../model/otp");
 const Contact = require("../model/usercontact");
-const Request = require("../model/requestFood")
+const Request = require("../model/requestFood");
 
 // Home Page
 router.get("/", (req, res) => {
@@ -125,6 +125,14 @@ router.post("/requestdonation", authenticate, async (req, res) => {
   }
 });
 
+router.get("/confirmdonation", async (req, res) => {
+  Request.find({}, function (err, reqs) {
+    if (err) console.log(err);
+    console.log(reqs);
+    res.send(reqs);
+  });
+});
+
 // Contact Page
 router.post("/contact", async (req, res) => {
   try {
@@ -137,7 +145,7 @@ router.post("/contact", async (req, res) => {
         email,
         phone,
         subject,
-        desc
+        desc,
       });
       await userContact.save();
       res.status(201).json({ message: "message sent" });
