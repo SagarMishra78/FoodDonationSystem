@@ -128,7 +128,6 @@ router.post("/requestdonation", authenticate, async (req, res) => {
 router.get("/confirmdonation", async (req, res) => {
   Request.find({}, function (err, reqs) {
     if (err) console.log(err);
-    console.log(reqs);
     res.send(reqs);
   });
 });
