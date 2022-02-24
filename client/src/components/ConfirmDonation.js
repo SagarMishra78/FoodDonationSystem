@@ -28,9 +28,9 @@ const ConfirmDonation = () => {
     callConfirmPage();
   });
 
-  const DisplayData = requests.map((info) => {
+  const DisplayData = requests.map((info, i) => {
     return (
-      <tr>
+      <tr key={i}>
         <td>{info.name}</td>
         <td>{info.address}</td>
         <td>{info.phone}</td>
