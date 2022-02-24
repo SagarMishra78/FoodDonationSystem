@@ -346,3 +346,13 @@ Button#sbtbtm[disabled] {
   background: #27ae60;
   color: white;
 }
+
+/* Confirm Page CSS */
+.MuiButton-label {
+  color: black;
+}
+
+.btnconfirm{
+  background-color: "#c3bcbc";
+  height: 40px
+}
