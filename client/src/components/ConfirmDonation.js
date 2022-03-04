@@ -51,12 +51,6 @@ const ConfirmDonation = () => {
         autoClose: true,
         hideProgressBar: true,
       });
-    } else if (response.status === 428) {
-      toast.error("Please fill all fields", {
-        position: toast.POSITION.TOP_CENTER,
-        autoClose: true,
-        hideProgressBar: true,
-      });
     }
   };
 
