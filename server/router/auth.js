@@ -105,7 +105,7 @@ router.get("/getdata", authenticate, (req, res) => {
 });
 
 // Request Page
-router.post("/requestdonation", authenticate, async (req, res) => {
+router.post("/requestdonation", async (req, res) => {
   try {
     const { name, address, phone, addinfo } = req.body;
     if (!addinfo) {
@@ -125,10 +125,23 @@ router.post("/requestdonation", authenticate, async (req, res) => {
   }
 });
 
+// Confirm Page
 router.get("/confirmdonation", async (req, res) => {
   Request.find({}, function (err, reqs) {
     if (err) console.log(err);
     res.send(reqs);
+  });
+});
+
+// Delete Request
+router.post("/delete", async (req, res) => {
+  const { id } = req.body;
+  Request.findByIdAndRemove(id, (err, doc) => {
+    if (!err) {
+      res.status(204).json({ message: "Deleted" });
+    } else {
+      console.log("Failed to Delete user Details: " + err);
+    }
   });
 });
 

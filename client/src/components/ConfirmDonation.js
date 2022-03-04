@@ -4,6 +4,10 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import CheckIcon from "@mui/icons-material/Check";
 import Stack from "@mui/material/Stack";
 
+import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
+toast.configure();
+
 const ConfirmDonation = () => {
   const [requests, setRequests] = useState([]);
 
@@ -28,32 +32,64 @@ const ConfirmDonation = () => {
     callConfirmPage();
   });
 
+  const handleDelete = async (e) => {
+    let id = e.currentTarget.id;
+
+    const response = await fetch("/delete", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id,
+      }),
+    });
+    await response.json();
+    if (response.status === 204) {
+      toast.success("Request Deleted", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: true,
+        hideProgressBar: true,
+      });
+    } else if (response.status === 428) {
+      toast.error("Please fill all fields", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: true,
+        hideProgressBar: true,
+      });
+    }
+  };
+
   const DisplayData = requests.map((info, i) => {
     return (
-      <tr key={i}>
-        <td>{info.name}</td>
-        <td>{info.address}</td>
-        <td>{info.phone}</td>
-        <td>{info.addinfo}</td>
-        <td style={{ width: 0 }}>
-          <Stack direction="row" spacing={2}>
-            <Button
-              className="btnconfirm"
-              variant="contained"
-              endIcon={<CheckIcon />}
-            >
-              Confirm
-            </Button>
-            <Button
-              className="btnconfirm"
-              variant="outlined"
-              endIcon={<DeleteIcon />}
-            >
-              Delete
-            </Button>
-          </Stack>
-        </td>
-      </tr>
+      <>
+        <tr key={i}>
+          <td>{info.name}</td>
+          <td>{info.address}</td>
+          <td>{info.phone}</td>
+          <td>{info.addinfo}</td>
+          <td style={{ width: 0 }}>
+            <Stack direction="row" spacing={2}>
+              <Button
+                className="btnconfirm"
+                variant="contained"
+                endIcon={<CheckIcon />}
+              >
+                Confirm
+              </Button>
+              <Button
+                className="btnconfirm"
+                variant="outlined"
+                endIcon={<DeleteIcon />}
+                id={info._id}
+                onClick={handleDelete}
+              >
+                Delete
+              </Button>
+            </Stack>
+          </td>
+        </tr>
+      </>
     );
   });
 
