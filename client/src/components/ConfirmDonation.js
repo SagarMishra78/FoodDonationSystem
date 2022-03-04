@@ -35,7 +35,7 @@ const ConfirmDonation = () => {
   const handleDelete = async (e) => {
     let id = e.currentTarget.id;
 
-    const response = await fetch("/delete", {
+    const res = await fetch("/delete", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -44,8 +44,8 @@ const ConfirmDonation = () => {
         id,
       }),
     });
-    await response.json();
-    if (response.status === 204) {
+    await res.json();
+    if (res.status === 204) {
       toast.success("Request Deleted", {
         position: toast.POSITION.TOP_CENTER,
         autoClose: true,

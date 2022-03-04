@@ -109,7 +109,7 @@ router.post("/requestdonation", async (req, res) => {
   try {
     const { name, address, phone, addinfo } = req.body;
     if (!addinfo) {
-      res.status(428).json({ error: "Please fill data" });
+      res.json({ error: "Please fill data" });
     } else {
       const requestFood = new Request({
         name,
