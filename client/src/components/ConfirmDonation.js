@@ -3,12 +3,14 @@ import { Button } from "@material-ui/core";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CheckIcon from "@mui/icons-material/Check";
 import Stack from "@mui/material/Stack";
+import { useNavigate } from "react-router-dom";
 
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 toast.configure();
 
 const ConfirmDonation = () => {
+  const Navigate = useNavigate();
   const [requests, setRequests] = useState([]);
 
   const callConfirmPage = async () => {
@@ -54,36 +56,41 @@ const ConfirmDonation = () => {
     }
   };
 
+  const handleConfirm = async (e) => {
+    // let id = e.currentTarget.id;
+    Navigate("/confirmdonationmodal");
+  };
+
   const DisplayData = requests.map((info, i) => {
     return (
-      <>
-        <tr key={i}>
-          <td>{info.name}</td>
-          <td>{info.address}</td>
-          <td>{info.phone}</td>
-          <td>{info.addinfo}</td>
-          <td style={{ width: 0 }}>
-            <Stack direction="row" spacing={2}>
-              <Button
-                className="btnconfirm"
-                variant="contained"
-                endIcon={<CheckIcon />}
-              >
-                Confirm
-              </Button>
-              <Button
-                className="btnconfirm"
-                variant="outlined"
-                endIcon={<DeleteIcon />}
-                id={info._id}
-                onClick={handleDelete}
-              >
-                Delete
-              </Button>
-            </Stack>
-          </td>
-        </tr>
-      </>
+      <tr key={i}>
+        <td>{info.name}</td>
+        <td>{info.address}</td>
+        <td>{info.phone}</td>
+        <td>{info.addinfo}</td>
+        <td style={{ width: 0 }}>
+          <Stack direction="row" spacing={2}>
+            <Button
+              className="btnconfirm"
+              variant="contained"
+              endIcon={<CheckIcon />}
+              id={info._id}
+              onClick={handleConfirm}
+            >
+              Confirm
+            </Button>
+            <Button
+              className="btnconfirm"
+              variant="outlined"
+              endIcon={<DeleteIcon />}
+              id={info._id}
+              onClick={handleDelete}
+            >
+              Delete
+            </Button>
+          </Stack>
+        </td>
+      </tr>
     );
   });
 

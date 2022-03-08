@@ -14,6 +14,8 @@ import RequestDonation from "./components/RequestDonation";
 import ConfirmDonation from "./components/ConfirmDonation";
 import SignupModal from "./components/SignupModal";
 import { SignupOptions } from "./components/SignupOptions";
+import ConfirmDonationModal from "./components/ConfirmDonationModal";
+import ItemDetails from "./components/ItemDetails";
 
 export const userContext = createContext();
 
@@ -36,6 +38,8 @@ const App = () => {
           <Route exact path="/signout" element={<Signout />} />
           <Route exact path="/signupmodal" element={<SignupModal />} />
           <Route exact path="/signupoptions" element={<SignupOptions />} />
+          <Route exact path="/confirmdonationmodal" element={<ConfirmDonationModal />} />
+          <Route exact path="/itemdetails" element={<ItemDetails />} />
         </Routes>
       </userContext.Provider>
     </>

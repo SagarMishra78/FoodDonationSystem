@@ -107,9 +107,6 @@ const RequestDonation = () => {
               InputLabelProps={{
                 shrink: true,
               }}
-              InputProps={{
-                readOnly: true,
-              }}
               style={inputStyle}
               value={userData.name}
               fullWidth
@@ -121,9 +118,6 @@ const RequestDonation = () => {
               InputLabelProps={{
                 shrink: true,
               }}
-              InputProps={{
-                readOnly: true,
-              }}
               style={inputStyle}
               value={userData.address}
               fullWidth
@@ -134,9 +128,6 @@ const RequestDonation = () => {
               label="Mobile"
               InputLabelProps={{
                 shrink: true,
-              }}
-              InputProps={{
-                readOnly: true,
               }}
               style={inputStyle}
               value={userData.phone}

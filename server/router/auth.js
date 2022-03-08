@@ -17,6 +17,7 @@ const Register = require("../model/userschema");
 const Otp = require("../model/otp");
 const Contact = require("../model/usercontact");
 const Request = require("../model/requestFood");
+const Item = require("../model/fooditem");
 
 // Home Page
 router.get("/", (req, res) => {
@@ -161,6 +162,27 @@ router.post("/contact", async (req, res) => {
       });
       await userContact.save();
       res.status(201).json({ message: "message sent" });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+// Items Page
+router.post("/fooditem", async (req, res) => {
+  try {
+    const { name, address, phone, items } = req.body;
+    if (!name || !address || !phone || !items) {
+      res.json({ error: "Please fill data" });
+    } else {
+      const ItemDetails = new Item({
+        name,
+        address,
+        phone,
+        items,
+      });
+      await ItemDetails.save();
+      res.status(201).json({ message: "Request Confirmed" });
     }
   } catch (error) {
     console.log(error);

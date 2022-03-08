@@ -88,6 +88,7 @@ input:invalid[focused="true"] ~ span {
     url("https://images.pexels.com/photos/114979/pexels-photo-114979.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500");
   background-size: cover;
   background-position: center;
+  overflow: auto;
 }
 
 form {
@@ -352,7 +353,13 @@ Button#sbtbtm[disabled] {
   color: black;
 }
 
-.btnconfirm{
+.btnconfirm {
   background-color: "#c3bcbc";
-  height: 40px
+  height: 40px;
+}
+
+.box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
