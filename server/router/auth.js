@@ -110,7 +110,7 @@ router.post("/requestdonation", async (req, res) => {
   try {
     const { name, address, phone, addinfo } = req.body;
     if (!addinfo) {
-      res.json({ error: "Please fill data" });
+      res.status(428).json({ error: "Please fill data" });
     } else {
       const requestFood = new Request({
         name,
@@ -173,7 +173,7 @@ router.post("/fooditem", async (req, res) => {
   try {
     const { name, address, phone, items } = req.body;
     if (!name || !address || !phone || !items) {
-      res.json({ error: "Please fill data" });
+      res.status(428).json({ error: "Please fill data" });
     } else {
       const ItemDetails = new Item({
         name,

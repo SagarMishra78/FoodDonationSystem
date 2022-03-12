@@ -13,12 +13,10 @@ const itemSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  items: [
-    {
-      type: String,
-      required: true,
-    },
-  ],
+  items: {
+    type: String,
+    required: true,
+  },
 });
 
 const Item = mongoose.model("ITEM", itemSchema);

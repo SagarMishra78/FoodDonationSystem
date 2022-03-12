@@ -1,61 +1,69 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
+import FormInput from "./FormInput";
 import { useNavigate } from "react-router-dom";
-
-import { Grid, Paper, Avatar, Button } from "@material-ui/core";
-import FoodBankIcon from "@mui/icons-material/FoodBank";
-import TextField from "@mui/material/TextField";
-
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 toast.configure();
 
 const RequestDonation = () => {
   const Navigate = useNavigate();
-  const [userData, setUserData] = useState({});
-
-  const [values] = useState({
+  const [values, setValues] = useState({
     name: "",
     address: "",
     phone: "",
     addinfo: "",
   });
 
-  const callRequestPage = async () => {
-    try {
-      const res = await fetch("/getdata", {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-      });
-      const data = await res.json();
-      setUserData(data);
+  const namepattern = "^[A-Za-z A-Za-z]{3,16}$";
+  const phonepattern = "[0-9]{10}";
 
-      if (!res.status === 200) {
-        const error = new Error(res.error);
-        throw error;
-      }
-    } catch (err) {
-      console.log(err);
-      Navigate("/signin");
-    }
+  const inputs = [
+    {
+      id: 1,
+      name: "name",
+      type: "text",
+      placeholder: "Enter your Name...",
+      errorMessage: "Please enter your Name",
+      label: "Name",
+      pattern: "^[A-Za-z A-Za-z]{3,16}$",
+      required: true,
+    },
+    {
+      id: 2,
+      name: "address",
+      type: "text",
+      placeholder: "Address",
+      label: "Address",
+      required: true,
+    },
+    {
+      id: 3,
+      name: "phone",
+      type: "tel",
+      placeholder: "Phone Number",
+      errorMessage: "please enter valid phone number",
+      label: "Phone Number",
+      pattern: "[0-9]{10}",
+      required: true,
+    },
+    {
+      id: 4,
+      name: "addinfo",
+      type: "text",
+      placeholder: "Any additional information here...",
+      errorMessage: "Please enter Item Details",
+      label: "Additional Information",
+      required: true,
+    },
+  ];
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
   };
 
-  useEffect(() => {
-    callRequestPage();
-  });
-
-  const paperStyle = {
-    padding: 10,
-    height: "73vh",
-    width: 280,
-    margin: "20px auto",
+  const onChange = (e) => {
+    setValues({ ...values, [e.target.name]: e.target.value });
   };
-  const avatarStyle = { backgroundColor: "red" };
-  const btnstyle = { margin: "8px 0", backgroundColor: "rebeccapurple" };
-  const inputStyle = { margin: "5px" };
 
   const postData = async () => {
     const { name, address, phone, addinfo } = values;
@@ -74,14 +82,14 @@ const RequestDonation = () => {
     });
     await res.json();
     if (res.status === 201) {
-      toast.success("Request sent", {
+      toast.success("Request Sent!", {
         position: toast.POSITION.TOP_CENTER,
         autoClose: true,
         hideProgressBar: true,
       });
-      Navigate("/");
+      Navigate("/")
     } else {
-      toast.error("Please fill all fields", {
+      toast.error("Something went Wrong", {
         position: toast.POSITION.TOP_CENTER,
         autoClose: true,
         hideProgressBar: true,
@@ -91,68 +99,28 @@ const RequestDonation = () => {
 
   return (
     <div className="app">
-      <form method="POST">
-        <Grid>
-          <Paper elevation={10} style={paperStyle}>
-            <Grid align="center">
-              <Avatar style={avatarStyle}>
-                <FoodBankIcon />
-              </Avatar>
-              <h2>Request Food</h2>
-            </Grid>
-            <TextField
-              id="standard-basic"
-              name="name"
-              label="Name"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              style={inputStyle}
-              value={userData.name}
-              fullWidth
-            />
-            <TextField
-              id="standard-basic"
-              name="address"
-              label="Address"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              style={inputStyle}
-              value={userData.address}
-              fullWidth
-            />
-            <TextField
-              id="standard-basic"
-              name="phone"
-              label="Mobile"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              style={inputStyle}
-              value={userData.phone}
-              fullWidth
-            />
-            <TextField
-              id="standard-basic"
-              name="addinfo"
-              label="Any additional information...."
-              fullWidth
-              multiline
-              rows={4}
-              required
-            />
-            <Button
-              type="submit"
-              variant="contained"
-              style={btnstyle}
-              onClick={postData}
-              fullWidth
-            >
-              Request
-            </Button>
-          </Paper>
-        </Grid>
+      <form onSubmit={handleSubmit}>
+        <h1>Request Donation</h1>
+        {inputs.map((input) => (
+          <FormInput
+            key={input.id}
+            {...input}
+            name={input.name}
+            value={values[input.name]}
+            onChange={onChange}
+          />
+        ))}
+        <button
+          disabled={
+            !values.name.match(namepattern) ||
+            !values.phone.match(phonepattern)
+          }
+          id="sbtbtm"
+          className="buttonLR"
+          onClick={postData}
+        >
+          Submit
+        </button>
       </form>
     </div>
   );

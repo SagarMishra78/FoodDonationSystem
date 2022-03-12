@@ -10,6 +10,7 @@ import Navbar from "./components/Navbar";
 import Signout from "./components/Signout";
 import { reducer, initialState } from "./reducer/useReducer";
 import OtpForm from "./components/OtpForm";
+import RequestDonationModal from "./components/RequestDonationModal";
 import RequestDonation from "./components/RequestDonation";
 import ConfirmDonation from "./components/ConfirmDonation";
 import SignupModal from "./components/SignupModal";
@@ -28,6 +29,7 @@ const App = () => {
         <Navbar />
         <Routes>
           <Route exact path="/" element={<Home />} />
+          <Route exact path="/RequestDonationModal" element={<RequestDonationModal />} />
           <Route exact path="/RequestDonation" element={<RequestDonation />} />
           <Route exact path="/ConfirmDonation" element={<ConfirmDonation />} />
           <Route exact path="/about" element={<About />} />
@@ -38,7 +40,11 @@ const App = () => {
           <Route exact path="/signout" element={<Signout />} />
           <Route exact path="/signupmodal" element={<SignupModal />} />
           <Route exact path="/signupoptions" element={<SignupOptions />} />
-          <Route exact path="/confirmdonationmodal" element={<ConfirmDonationModal />} />
+          <Route
+            exact
+            path="/confirmdonationmodal"
+            element={<ConfirmDonationModal />}
+          />
           <Route exact path="/itemdetails" element={<ItemDetails />} />
         </Routes>
       </userContext.Provider>

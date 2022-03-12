@@ -1,15 +1,69 @@
-import React, { useState } from "react";
-import { TextField, Button } from "@mui/material";
+import { useState } from "react";
+import FormInput from "./FormInput";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+toast.configure();
 
 const ItemDetails = () => {
-  const [inputList, setInputList] = useState([{}]);
-
-  const [values] = useState({
+  const Navigate = useNavigate();
+  const [values, setValues] = useState({
     name: "",
     address: "",
     phone: "",
     items: "",
   });
+
+  const namepattern = "^[A-Za-z A-Za-z]{3,16}$";
+  const phonepattern = "[0-9]{10}";
+
+  const inputs = [
+    {
+      id: 1,
+      name: "name",
+      type: "text",
+      placeholder: "Enter your Name...",
+      errorMessage: "Please enter your Name",
+      label: "Name",
+      pattern: "^[A-Za-z A-Za-z]{3,16}$",
+      required: true,
+    },
+    {
+      id: 2,
+      name: "address",
+      type: "text",
+      placeholder: "Address",
+      label: "Address",
+      required: true,
+    },
+    {
+      id: 3,
+      name: "phone",
+      type: "tel",
+      placeholder: "Phone Number",
+      errorMessage: "please enter valid phone number",
+      label: "Phone Number",
+      pattern: "[0-9]{10}",
+      required: true,
+    },
+    {
+      id: 4,
+      name: "items",
+      type: "text",
+      placeholder: "Enter items here...",
+      errorMessage: "Please enter Item Details",
+      label: "Items",
+      required: true,
+    },
+  ];
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+
+  const onChange = (e) => {
+    setValues({ ...values, [e.target.name]: e.target.value });
+  };
 
   const postData = async () => {
     const { name, address, phone, items } = values;
@@ -27,107 +81,45 @@ const ItemDetails = () => {
       }),
     });
     await res.json();
-  };
-
-  // handle input change
-  const handleInputChange = (e, index) => {
-    const { value } = e.target;
-    const list = [...inputList];
-    list[index] = value;
-    setInputList(list);
-  };
-
-  // handle click event of the Remove button
-  const handleRemoveClick = (index) => {
-    const list = [...inputList];
-    list.splice(index, 1);
-    setInputList(list);
-  };
-
-  // handle click event of the Add button
-  const handleAddClick = () => {
-    setInputList([...inputList, {}]);
+    if (res.status === 201) {
+      toast.success("Confirmed", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: true,
+        hideProgressBar: true,
+      });
+      Navigate("/confirmdonation")
+    } else {
+      toast.error("Something went Wrong", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: true,
+        hideProgressBar: true,
+      });
+    }
   };
 
   return (
-    <div className="App">
-      <form method="POST">
-        <h4>Personal Detials...</h4>
-        <TextField
-          style={{ margin: "5px", width: "80%" }}
-          id="standard-basic"
-          name="name"
-          label="Name"
-          fullWidth
-        />
-        <TextField
-          style={{ margin: "5px", width: "80%" }}
-          id="standard-basic"
-          name="address"
-          label="Address"
-          fullWidth
-        />
-        <TextField
-          style={{ margin: "5px", width: "80%" }}
-          id="standard-basic"
-          name="phone"
-          label="Mobile"
-          fullWidth
-        />
-        <h4>Item Detials...</h4>
-        {inputList.map((x, i) => {
-          return (
-            <div className="box">
-              <TextField
-                id="outlined-size-small"
-                label="Item Name"
-                size="small"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                name="items"
-                placeholder="Enter Item"
-                value={x.firstName}
-                onChange={(e) => handleInputChange(e, i)}
-                style={{ margin: "5px" }}
-              />
-              <div className="btn-box">
-                {inputList.length !== 1 && (
-                  <Button
-                    style={{
-                      width: "100px",
-                      marginLeft: "5px",
-                      height: "35px",
-                    }}
-                    variant="contained"
-                    size="small"
-                    className="mr10"
-                    onClick={() => handleRemoveClick(i)}
-                  >
-                    Remove
-                  </Button>
-                )}
-                {inputList.length - 1 === i && (
-                  <Button
-                    style={{
-                      width: "100px",
-                      marginLeft: "5px",
-                      height: "35px",
-                    }}
-                    variant="contained"
-                    size="small"
-                    onClick={handleAddClick}
-                  >
-                    Add
-                  </Button>
-                )}
-              </div>
-            </div>
-          );
-        })}
-        <div style={{ marginTop: 20 }}>{JSON.stringify(inputList)}</div>
-        <button style={{ width: "100px" }} onClick={postData}>
-          Confirm
+    <div className="app">
+      <form onSubmit={handleSubmit}>
+        <h1>Confirm Donation</h1>
+        {inputs.map((input) => (
+          <FormInput
+            key={input.id}
+            {...input}
+            name={input.name}
+            value={values[input.name]}
+            onChange={onChange}
+          />
+        ))}
+        <button
+          disabled={
+            !values.name.match(namepattern) ||
+            !values.phone.match(phonepattern)
+          }
+          id="sbtbtm"
+          className="buttonLR"
+          onClick={postData}
+        >
+          Submit
         </button>
       </form>
     </div>
