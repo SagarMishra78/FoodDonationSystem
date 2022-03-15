@@ -66,22 +66,30 @@ const Signin = () => {
       toast.warning("Please fill data", {
         position: toast.POSITION.TOP_CENTER,
         autoClose: true,
-        hideProgressBar: true
+        hideProgressBar: true,
       });
     } else if (res.status === 400) {
       toast.error("Invalid Credentials", {
         position: toast.POSITION.TOP_CENTER,
         autoClose: true,
-        hideProgressBar: true
+        hideProgressBar: true,
       });
-    } else {
+    } else if (res.status === 201) {
       dispatch({ type: "USER", payload: true });
       toast.success("Logged in...", {
         position: toast.POSITION.TOP_CENTER,
         autoClose: true,
-        hideProgressBar: true
+        hideProgressBar: true,
       });
-      Navigate("/");
+      Navigate("/restraunthome");
+    } else if (res.status === 200) {
+      dispatch({ type: "USER", payload: true });
+      toast.success("Logged in...", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: true,
+        hideProgressBar: true,
+      });
+      Navigate("/ngohome");
     }
   };
 

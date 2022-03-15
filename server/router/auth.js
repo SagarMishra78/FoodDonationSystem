@@ -26,7 +26,7 @@ router.get("/", (req, res) => {
 
 // Signup Page
 router.post("/signup", async (req, res) => {
-  const { name, email, phone, address, password, cpassword } = req.body;
+  const { role, name, email, phone, address, password, cpassword } = req.body;
   if (!name || !email || !phone || !address || !password || !cpassword) {
     return res.status(428).json({ error: "Required Field" });
   }
@@ -41,6 +41,7 @@ router.post("/signup", async (req, res) => {
       return res.status(422).json({ error: "Password not matched" });
     } else {
       const register = new Register({
+        role,
         name,
         email,
         phone,
@@ -82,10 +83,15 @@ router.post("/signin", async (req, res) => {
         httpOnly: true,
       });
 
+      const roles = userLogin.role;
+      console.log(roles);
+
       if (!isMatch) {
         res.status(400).json({ error: "Invalid Credentials" });
-      } else {
-        res.json({ message: "Login Successful" });
+      } else if(roles == 1) {
+        res.json({ message: "Login Successful NGO" });
+      } else if(roles == 2) {
+        res.status(201).json({ message: "Login Successful Restraunt" });
       }
     } else {
       res.status(400).json({ error: "Invalid Credentials" });
@@ -139,7 +145,7 @@ router.post("/delete", async (req, res) => {
   const { id } = req.body;
   Request.findByIdAndRemove(id, (err, doc) => {
     if (!err) {
-      res.status(204).json({ message: "Deleted" });
+      res.json({ message: "Deleted" });
     } else {
       console.log("Failed to Delete user Details: " + err);
     }

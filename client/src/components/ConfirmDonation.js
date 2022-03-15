@@ -47,7 +47,7 @@ const ConfirmDonation = () => {
       }),
     });
     await res.json();
-    if (res.status === 204) {
+    if (res.status === 200) {
       toast.success("Request Deleted", {
         position: toast.POSITION.TOP_CENTER,
         autoClose: true,

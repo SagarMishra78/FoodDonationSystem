@@ -1,13 +1,23 @@
+import * as React from 'react';
 import { useState } from "react";
 import FormInput from "./FormInput";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
+import Box from "@mui/material/Box";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 toast.configure();
 
 const Signup = () => {
   const Navigate = useNavigate();
+
   const [values, setValues] = useState({
+    role: "",
     name: "",
     email: "",
     phone: "",
@@ -28,8 +38,8 @@ const Signup = () => {
       placeholder: "Enter your name...",
       errorMessage:
         "Username should be 3-16 characters and shouldn't include any special character!",
-        label: "Name",
-        pattern: "^[A-Za-z A-Za-z]{3,16}$",
+      label: "Name",
+      pattern: "^[A-Za-z A-Za-z]{3,16}$",
       required: true,
     },
     {
@@ -95,7 +105,7 @@ const Signup = () => {
   // Connecting DB
 
   const PostData = async () => {
-    const { name, email, phone, address, password, cpassword } = values;
+    const { role, name, email, phone, address, password, cpassword } = values;
 
     const res = await fetch("/signup", {
       method: "POST",
@@ -103,6 +113,7 @@ const Signup = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
+        role,
         name,
         email,
         phone,
@@ -116,19 +127,19 @@ const Signup = () => {
       toast.error("Failed to Register", {
         position: toast.POSITION.TOP_CENTER,
         autoClose: true,
-        hideProgressBar: true
+        hideProgressBar: true,
       });
     } else if (res.status === 406) {
       toast.warning("User Already Registered", {
         position: toast.POSITION.TOP_CENTER,
         autoClose: true,
-        hideProgressBar: true
+        hideProgressBar: true,
       });
     } else {
       toast.success("Registered Successfully!!", {
         position: toast.POSITION.TOP_CENTER,
         autoClose: true,
-        hideProgressBar: true
+        hideProgressBar: true,
       });
       Navigate("/signin");
     }
@@ -138,8 +149,22 @@ const Signup = () => {
     <div className="app">
       <form onSubmit={handleSubmit}>
         <h1>Register</h1>
-        <p id="para" style={{ color: "red" }}></p>
-        <Link id="link" to={"/signin"} style={{ color: "green" }}></Link>
+        <Box sx={{ minWidth: 120 }}>
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Register As...</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              name='role'
+              label="Role"
+              onChange={onChange}
+            >
+              <MenuItem value={1}>NGO</MenuItem>
+              <MenuItem value={2}>Restraunt</MenuItem>
+            </Select>
+          </FormControl>
+        </Box>
+
         {inputs.map((input) => (
           <FormInput
             key={input.id}

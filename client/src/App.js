@@ -13,10 +13,10 @@ import OtpForm from "./components/OtpForm";
 import RequestDonationModal from "./components/RequestDonationModal";
 import RequestDonation from "./components/RequestDonation";
 import ConfirmDonation from "./components/ConfirmDonation";
-import SignupModal from "./components/SignupModal";
-import { SignupOptions } from "./components/SignupOptions";
 import ConfirmDonationModal from "./components/ConfirmDonationModal";
 import ItemDetails from "./components/ItemDetails";
+import NGOHome from "./components/NGOHome";
+import RestrauntHome from "./components/RestrauntHome";
 
 export const userContext = createContext();
 
@@ -38,8 +38,8 @@ const App = () => {
           <Route exact path="/signup" element={<Signup />} />
           <Route exact path="/resetPassword" element={<OtpForm />} />
           <Route exact path="/signout" element={<Signout />} />
-          <Route exact path="/signupmodal" element={<SignupModal />} />
-          <Route exact path="/signupoptions" element={<SignupOptions />} />
+          <Route exact path="/ngohome" element={<NGOHome />} />
+          <Route exact path="/restraunthome" element={<RestrauntHome />} />
           <Route
             exact
             path="/confirmdonationmodal"

@@ -35,6 +35,8 @@ const NGOHome = () => {
         </Carousel.Item>
       </Carousel>
 
+      <h1>NGO</h1>
+
       {/* Card */}
       <div className="btncard">
         <div className="card" style={{ width: "18rem" }}>
@@ -44,26 +46,14 @@ const NGOHome = () => {
               Some quick example text to build on the card title and make up the
               bulk of the card's content.
             </p>
-            <Link className="btn btn-primary" to={"/RequestDonation"}>
+            <Link className="btn btn-primary" to={"/RequestDonationModal"}>
               Request
             </Link>
           </div>
         </div>
         <div className="card" style={{ width: "18rem" }}>
           <div className="card-body">
-            <h5 className="card-title">Confirm Donation</h5>
-            <p className="card-text">
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
-            </p>
-            <Link className="btn btn-primary" to={"/"}>
-              Confirm
-            </Link>
-          </div>
-        </div>
-        <div className="card" style={{ width: "18rem" }}>
-          <div className="card-body">
-            <h5 className="card-title">Track Donation</h5>
+            <h5 className="card-title">Donation Status</h5>
             <p className="card-text">
               Some quick example text to build on the card title and make up the
               bulk of the card's content.

@@ -87,7 +87,7 @@ const RequestDonation = () => {
         autoClose: true,
         hideProgressBar: true,
       });
-      Navigate("/")
+      Navigate("/ngohome")
     } else {
       toast.error("Something went Wrong", {
         position: toast.POSITION.TOP_CENTER,
