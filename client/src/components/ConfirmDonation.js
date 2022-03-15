@@ -57,8 +57,25 @@ const ConfirmDonation = () => {
   };
 
   const handleConfirm = async (e) => {
-    // let id = e.currentTarget.id;
+    let id = e.currentTarget.id;
     Navigate("/confirmdonationmodal");
+    const res = await fetch("/delete", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id,
+      }),
+    });
+    await res.json();
+    if (res.status === 200) {
+      toast.success("Submit Confirmaion Details", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: true,
+        hideProgressBar: true,
+      });
+    }
   };
 
   const DisplayData = requests.map((info, i) => {
