@@ -17,6 +17,8 @@ import ConfirmDonationModal from "./components/ConfirmDonationModal";
 import ItemDetails from "./components/ItemDetails";
 import NGOHome from "./components/NGOHome";
 import RestrauntHome from "./components/RestrauntHome";
+import OngoingDonation from "./components/OngoingDonation";
+import DonationStatus from "./components/DonationStatus";
 
 export const userContext = createContext();
 
@@ -40,6 +42,8 @@ const App = () => {
           <Route exact path="/signout" element={<Signout />} />
           <Route exact path="/ngohome" element={<NGOHome />} />
           <Route exact path="/restraunthome" element={<RestrauntHome />} />
+          <Route exact path="/ongoingdonation" element={<OngoingDonation />} />
+          <Route exact path="/donationstatus" element={<DonationStatus />} />
           <Route
             exact
             path="/confirmdonationmodal"

@@ -84,7 +84,6 @@ router.post("/signin", async (req, res) => {
       });
 
       const roles = userLogin.role;
-      console.log(roles);
 
       if (!isMatch) {
         res.status(400).json({ error: "Invalid Credentials" });
@@ -193,6 +192,14 @@ router.post("/fooditem", async (req, res) => {
   } catch (error) {
     console.log(error);
   }
+});
+
+// Getting Items
+router.get("/donationinprogress", async (req, res) => {
+  Item.find({}, function (err, reqs) {
+    if (err) console.log(err);
+    res.send(reqs);
+  });
 });
 
 // Logout
