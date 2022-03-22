@@ -161,6 +161,7 @@ const Signup = () => {
             >
               <MenuItem value={1}>NGO</MenuItem>
               <MenuItem value={2}>Restraunt</MenuItem>
+              <MenuItem value={3}>Charity Employee</MenuItem>
             </Select>
           </FormControl>
         </Box>

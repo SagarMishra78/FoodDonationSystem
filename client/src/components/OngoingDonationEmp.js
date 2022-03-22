@@ -8,7 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 toast.configure();
 
-const OngoingDonation = () => {
+const OngoingDonationEmp = () => {
   const Navigate = useNavigate();
   const [requests, setRequests] = useState([]);
 
@@ -33,9 +33,19 @@ const OngoingDonation = () => {
     callConfirmPage();
   });
 
-  const donationStatus = () => {
-    // let id = e.currentTarget.id;
+  const donationStatus = async (e) => {
     Navigate("/donationstatus");
+    let id = e.currentTarget.id;
+    const res = await fetch("/updatestatus", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id,
+      }),
+    });
+    await res.json();
   }
 
   const DisplayData = requests.map((info, i) => {
@@ -54,7 +64,7 @@ const OngoingDonation = () => {
               id={info._id}
               onClick={donationStatus}
             >
-              Status
+              Update Status
             </Button>
           </Stack>
         </td>
@@ -81,4 +91,4 @@ const OngoingDonation = () => {
   );
 };
 
-export default OngoingDonation;
+export default OngoingDonationEmp;

@@ -91,6 +91,8 @@ router.post("/signin", async (req, res) => {
         res.json({ message: "Login Successful NGO" });
       } else if(roles == 2) {
         res.status(201).json({ message: "Login Successful Restraunt" });
+      } else if(roles == 3) {
+        res.status(202).json({ message: "Login Successful Employee" });
       }
     } else {
       res.status(400).json({ error: "Invalid Credentials" });
@@ -201,6 +203,26 @@ router.get("/donationinprogress", async (req, res) => {
     res.send(reqs);
   });
 });
+
+// Update Status
+router.post("/updatestatus", async (req, res) => {
+  try {
+    const {status, id} = req.body;
+    console.log(status);
+    console.log(id);
+    if (!status) {
+      return res.json({error: "In Progress"});
+    }
+    const statusUpdate = await Item.findOne({_id: id});
+    if (statusUpdate) {
+      const donationStatus = await statusUpdate.addStatus(status);
+      await statusUpdate.save();
+      res.status(201).json({message: "status updated"})
+    }
+  } catch (error) {
+    console.log(error);
+  }
+})
 
 // Logout
 router.get("/signout", authenticate, async (req, res) => {

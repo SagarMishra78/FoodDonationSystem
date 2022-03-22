@@ -90,6 +90,14 @@ const Signin = () => {
         hideProgressBar: true,
       });
       Navigate("/ngohome");
+    } else if (res.status === 202) {
+      dispatch({ type: "USER", payload: true });
+      toast.success("Logged in...", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: true,
+        hideProgressBar: true,
+      });
+      Navigate("/employee");
     }
   };
 
