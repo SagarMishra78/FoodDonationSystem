@@ -7,11 +7,14 @@ import StepLabel from "@mui/material/StepLabel";
 import StepContent from "@mui/material/StepContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import {useLocation} from 'react-router-dom';
 
-const DonationStatus = () => {
-
+const DonationStatus = (props) => {
+  const { state } = useLocation();
+  const ids = state;
   const [values, setValues] = useState({
     status:"",
+    id:ids,
   });
 
   const steps = [
@@ -50,7 +53,7 @@ const DonationStatus = () => {
   };
 
   const PostData = async () => {
-    const { status } = values;
+    const { status, id } = values;
 
     const res = await fetch("/updatestatus", {
       method: "POST",
@@ -58,7 +61,8 @@ const DonationStatus = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        status
+        status,
+        id,
       }),
     });
     const data = await res.json();

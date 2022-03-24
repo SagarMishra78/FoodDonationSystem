@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "@material-ui/core";
-import PendingIcon from '@mui/icons-material/Pending';
+import PendingIcon from "@mui/icons-material/Pending";
 import Stack from "@mui/material/Stack";
 import { useNavigate } from "react-router-dom";
 
@@ -8,7 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 toast.configure();
 
-const OngoingDonationEmp = () => {
+const OngoingDonationEmp = (props) => {
   const Navigate = useNavigate();
   const [requests, setRequests] = useState([]);
 
@@ -33,20 +33,10 @@ const OngoingDonationEmp = () => {
     callConfirmPage();
   });
 
-  const donationStatus = async (e) => {
-    Navigate("/donationstatus");
+  const donationStatus = (e) => {
     let id = e.currentTarget.id;
-    const res = await fetch("/updatestatus", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        id,
-      }),
-    });
-    await res.json();
-  }
+    Navigate("/donationstatus", { state: id });
+  };
 
   const DisplayData = requests.map((info, i) => {
     return (
