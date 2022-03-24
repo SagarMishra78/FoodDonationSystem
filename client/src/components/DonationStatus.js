@@ -7,14 +7,19 @@ import StepLabel from "@mui/material/StepLabel";
 import StepContent from "@mui/material/StepContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import {useLocation} from 'react-router-dom';
+import { useLocation } from "react-router-dom";
+
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 
 const DonationStatus = (props) => {
   const { state } = useLocation();
   const ids = state;
   const [values, setValues] = useState({
-    status:"",
-    id:ids,
+    status: "",
+    id: ids,
   });
 
   const steps = [
@@ -71,15 +76,31 @@ const DonationStatus = (props) => {
 
   return (
     <div className="app">
-      <form onSubmit={handleSubmit}>
+      <form className="status" onSubmit={handleSubmit}>
         <Box sx={{ maxWidth: 400 }}>
           <Stepper activeStep={activeStep} orientation="vertical">
             {steps.map((step, index) => (
               <Step key={step.label}>
-                <h6
-                name='status'
-                onChange={onChange}
-                >{step.label}</h6>
+                <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-label">
+                    Taks...
+                  </InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    name="status"
+                    label="Tasks"
+                    onChange={onChange}
+                  >
+                    <MenuItem value={1}>Initiated</MenuItem>
+                    <MenuItem value={2}>Food picked from Restraunt</MenuItem>
+                    <MenuItem value={3}>Food Donated to Needy</MenuItem>
+                    <MenuItem value={4}>Completed!</MenuItem>
+                  </Select>
+                </FormControl>
+                <h6 name="status" onChange={onChange}>
+                  {step.label}
+                </h6>
                 <StepLabel>{step.label}</StepLabel>
                 <StepContent>
                   <Typography>{step.description}</Typography>

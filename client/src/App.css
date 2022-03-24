@@ -92,7 +92,6 @@ input:invalid[focused="true"] ~ span {
 }
 
 form {
-  margin-bottom: 50px;
   background-color: white;
   padding: 0px 60px;
   border-radius: 10px;
