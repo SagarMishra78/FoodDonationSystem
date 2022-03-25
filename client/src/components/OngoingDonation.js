@@ -8,7 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 toast.configure();
 
-const OngoingDonation = () => {
+const OngoingDonation = (props) => {
   const Navigate = useNavigate();
   const [requests, setRequests] = useState([]);
 
@@ -35,7 +35,7 @@ const OngoingDonation = () => {
 
   const donationStatus = async (e) => {
     let id = e.currentTarget.id;
-    await fetch("/displaystatus", {
+    const res = await fetch("/displaystatus", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -44,7 +44,8 @@ const OngoingDonation = () => {
         id,
       }),
     });
-    Navigate("/showstatus");
+    await res.json();
+    Navigate("/showstatus", { state: res.status });
   }
 
   const DisplayData = requests.map((info, i) => {
