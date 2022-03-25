@@ -99,7 +99,7 @@ const RequestDonation = () => {
 
   return (
     <div className="app">
-      <form onSubmit={handleSubmit}>
+      <form className="request" onSubmit={handleSubmit}>
         <h1>Request Donation</h1>
         {inputs.map((input) => (
           <FormInput

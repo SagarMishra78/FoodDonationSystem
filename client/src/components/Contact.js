@@ -113,7 +113,7 @@ const Contact = () => {
 
   return (
     <div className="app">
-      <form method="POST" onSubmit={handleSubmit}>
+      <form className="contact" method="POST" onSubmit={handleSubmit}>
         <h1>Contact Us</h1>
         {inputs.map((input) => (
           <FormInput

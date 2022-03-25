@@ -33,9 +33,18 @@ const OngoingDonation = () => {
     callConfirmPage();
   });
 
-  const donationStatus = () => {
-    // let id = e.currentTarget.id;
-    Navigate("/donationstatus");
+  const donationStatus = async (e) => {
+    let id = e.currentTarget.id;
+    await fetch("/displaystatus", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id,
+      }),
+    });
+    Navigate("/showstatus");
   }
 
   const DisplayData = requests.map((info, i) => {

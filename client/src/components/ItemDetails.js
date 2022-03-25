@@ -99,7 +99,7 @@ const ItemDetails = () => {
 
   return (
     <div className="app">
-      <form onSubmit={handleSubmit}>
+      <form className="items" onSubmit={handleSubmit}>
         <h1>Confirm Donation</h1>
         {inputs.map((input) => (
           <FormInput

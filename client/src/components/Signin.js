@@ -103,7 +103,7 @@ const Signin = () => {
 
   return (
     <div className="app">
-      <form onSubmit={handleSubmit}>
+      <form className="signin" onSubmit={handleSubmit}>
         <h1>Login</h1>
         <p id="para"></p>
         {inputs.map((input) => (

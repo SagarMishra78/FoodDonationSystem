@@ -146,8 +146,8 @@ const Signup = () => {
   };
 
   return (
-    <div className="app">
-      <form onSubmit={handleSubmit}>
+    <div className="app2">
+      <form className='signup' onSubmit={handleSubmit}>
         <h1>Register</h1>
         <Box sx={{ minWidth: 120 }}>
           <FormControl fullWidth>

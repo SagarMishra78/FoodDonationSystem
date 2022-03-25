@@ -77,7 +77,7 @@ input:invalid[focused="true"] ~ span {
 }
 
 .app {
-  display: flex;
+  display: grid;
   align-items: center;
   justify-content: center;
   height: 100vh;
@@ -88,10 +88,24 @@ input:invalid[focused="true"] ~ span {
     url("https://images.pexels.com/photos/114979/pexels-photo-114979.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500");
   background-size: cover;
   background-position: center;
-  overflow: auto;
 }
 
-form {
+.app2 {
+  padding-top: 20px;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  height: fit-content;
+  background: linear-gradient(
+      rgba(255, 255, 255, 0.7),
+      rgba(255, 255, 255, 0.3)
+    ),
+    url("https://images.pexels.com/photos/114979/pexels-photo-114979.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500");
+  background-size: cover;
+  background-position: center;
+}
+
+.contact, .items, .otp, .password, .request, .signin, .signup {
   background-color: white;
   padding: 0px 60px;
   border-radius: 10px;

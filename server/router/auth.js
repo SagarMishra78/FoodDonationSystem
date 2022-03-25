@@ -87,11 +87,11 @@ router.post("/signin", async (req, res) => {
 
       if (!isMatch) {
         res.status(400).json({ error: "Invalid Credentials" });
-      } else if(roles == 1) {
+      } else if (roles == 1) {
         res.json({ message: "Login Successful NGO" });
-      } else if(roles == 2) {
+      } else if (roles == 2) {
         res.status(201).json({ message: "Login Successful Restraunt" });
-      } else if(roles == 3) {
+      } else if (roles == 3) {
         res.status(202).json({ message: "Login Successful Employee" });
       }
     } else {
@@ -207,22 +207,41 @@ router.get("/donationinprogress", async (req, res) => {
 // Update Status
 router.post("/updatestatus", async (req, res) => {
   try {
-    const {status, id} = req.body;
-    console.log(status);
-    console.log(id);
+    const { status, id } = req.body;
     if (!status) {
-      return res.json({error: "In Progress"});
+      return res.json({ error: "In Progress" });
     }
-    const statusUpdate = await Item.findOne({_id: id});
+    const statusUpdate = await Item.findOne({ _id: id });
     if (statusUpdate) {
       const donationStatus = await statusUpdate.addStatus(status);
       await statusUpdate.save();
-      res.status(201).json({message: "status updated"})
+      res.status(209).json({ message: "status updated" });
     }
   } catch (error) {
     console.log(error);
   }
-})
+});
+
+// Show Status
+router.post("/displaystatus", async (req, res) => {
+  try {
+    const { id } = req.body;
+    const status = await Item.findOne({ _id: id });
+    const st = status.statuses;
+    if (st.length == 1) {
+      res.json({ message: "Initiated" });
+    } else if (st.length == 2) {
+      res.status(201).json({ message: "Food picked from Restraunt" });
+    } else if (st.length == 3) {
+      res.status(202).json({ message: "Food Donated to Needy" });
+    } else if (st.length == 4) {
+      res.status(203).json({ message: "Completed!" });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 
 // Logout
 router.get("/signout", authenticate, async (req, res) => {

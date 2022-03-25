@@ -14,6 +14,10 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+toast.configure();
+
 const DonationStatus = (props) => {
   const { state } = useLocation();
   const ids = state;
@@ -24,22 +28,21 @@ const DonationStatus = (props) => {
 
   const steps = [
     {
-      label: "Select campaign settings",
-      description: `For each ad campaign that you create, you can control how much
-                you're willing to spend on clicks and conversions, which networks
-                and geographical locations you want your ads to show on, and more.`,
+      label: "Initiated",
+      description: `Donation has been accepted and initiated by ngo charity employee.`,
     },
     {
-      label: "Create an ad group",
+      label: "Food picked from Restraunt",
       description:
-        "An ad group contains one or more ads which target a shared set of keywords.",
+        "Charity Employee has picked food from the respective restraunt.",
     },
     {
-      label: "Create an ad",
-      description: `Try out different ad text to see what brings in the most customers,
-                and learn how to enhance your ads using features like ad extensions.
-                If you run into any problems with your ads, find out how to tell if
-                they're running and how to resolve approval issues.`,
+      label: "Food Donated to Needy",
+      description: `Food has been donated to the needy people.`,
+    },
+    {
+      label: "Completed!",
+      description: `This donation process is now completed.`,
     },
   ];
 
@@ -70,12 +73,18 @@ const DonationStatus = (props) => {
         id,
       }),
     });
-    const data = await res.json();
-    alert(data);
+    await res.json();
+    if (res.status === 209) {
+      toast.success("Status Updated", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: true,
+        hideProgressBar: true,
+      });
+    }
   };
 
   return (
-    <div className="app">
+    <div className="app2">
       <form className="status" onSubmit={handleSubmit}>
         <Box sx={{ maxWidth: 400 }}>
           <Stepper activeStep={activeStep} orientation="vertical">
@@ -83,7 +92,7 @@ const DonationStatus = (props) => {
               <Step key={step.label}>
                 <FormControl fullWidth>
                   <InputLabel id="demo-simple-select-label">
-                    Taks...
+                    Task...
                   </InputLabel>
                   <Select
                     labelId="demo-simple-select-label"

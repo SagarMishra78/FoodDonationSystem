@@ -71,7 +71,7 @@ const OtpForm = () => {
   return (
     <div className="app">
       {otpForm ? (
-        <form onSubmit={handleSubmit}>
+        <form className="otp" onSubmit={handleSubmit}>
           <h1>Reset Password</h1>
           {inputs.map((input) => (
             <FormInput

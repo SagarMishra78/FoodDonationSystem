@@ -21,6 +21,7 @@ import OngoingDonation from "./components/OngoingDonation";
 import DonationStatus from "./components/DonationStatus";
 import Employee from "./components/Employee";
 import OngoingDonationEmp from "./components/OngoingDonationEmp";
+import ShowStatus from "./components/ShowStatus";
 
 export const userContext = createContext();
 
@@ -48,6 +49,7 @@ const App = () => {
           <Route exact path="/ongoingdonation" element={<OngoingDonation />} />
           <Route exact path="/ongoingdonationemp" element={<OngoingDonationEmp />} />
           <Route exact path="/donationstatus" element={<DonationStatus />} />
+          <Route exact path="/showstatus" element={<ShowStatus />} />
           <Route
             exact
             path="/confirmdonationmodal"

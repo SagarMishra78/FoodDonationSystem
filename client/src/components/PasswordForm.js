@@ -100,7 +100,7 @@ const PasswordForm = (props) => {
 
   return (
     <div className="app">
-      <form onSubmit={handleSubmit}>
+      <form className="password" onSubmit={handleSubmit}>
         <h1>Change Password</h1>
         {inputs.map((input) => (
           <FormInput
