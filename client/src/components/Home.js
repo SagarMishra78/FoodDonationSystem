@@ -16,7 +16,7 @@ const Home = () => {
         <Carousel.Item>
           <img className="d-block w-100" src={img1} alt="First slide" />
           <Carousel.Caption>
-            <p className="caption">Don't be rude, donate some food.</p>
+            <p className="caption" style={{color: "white"}}>Don't be rude, donate some food.</p>
           </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>

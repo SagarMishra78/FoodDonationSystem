@@ -25,6 +25,18 @@ const itemSchema = new mongoose.Schema({
       },
     },
   ],
+  employees: [
+    {
+      name: {
+        type: String,
+        required: true,
+      },
+      phone: {
+        type: Number,
+        required: true,
+      },
+    },
+  ],
 });
 
 itemSchema.methods.addStatus = async function (status) {
@@ -32,6 +44,16 @@ itemSchema.methods.addStatus = async function (status) {
     this.statuses = this.statuses.concat({ status });
     await this.save();
     return this.status;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+itemSchema.methods.assign = async function (name, phone) {
+  try {
+    this.employees = this.employees.concat({ name, phone });
+    await this.save();
+    return this.employees;
   } catch (error) {
     console.log(error);
   }

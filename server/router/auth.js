@@ -222,6 +222,21 @@ router.post("/updatestatus", async (req, res) => {
   }
 });
 
+// Assign Employee
+router.post("/employeeassign", async (req, res) => {
+  try {
+    const { name, phone, id } = req.body;
+    const assignemp = await Item.findOne({ _id: id });
+    if (assignemp) {
+      await assignemp.assign(name, phone);
+      await assignemp.save();
+      res.status(201).json({ message: "Employee Assigned" });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 // Show Status
 router.post("/displaystatus", async (req, res) => {
   try {

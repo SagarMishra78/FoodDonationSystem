@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { useLocation } from "react-router-dom";
 
 import Box from "@mui/material/Box";
@@ -8,6 +8,28 @@ import StepLabel from "@mui/material/StepLabel";
 
 const ShowStatus = (props) => {
   const { state } = useLocation();
+  const [employee, setEmployee] = useState([]);
+
+  const employeedetails = async () => {
+    try {
+      const res = await fetch("/donationinprogress", {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      });
+      const data = await res.json();
+      console.log(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    employeedetails();
+  });
 
   const steps = [
     `Donation has been accepted and initiated by ngo charity employee.`,
@@ -18,7 +40,7 @@ const ShowStatus = (props) => {
 
   const Initiated = () => {
     return (
-      <div className="app">
+      <div>
         <Box sx={{ width: "100%" }}>
           <Stepper activeStep={0} alternativeLabel>
             {steps.map((label) => (
@@ -34,7 +56,7 @@ const ShowStatus = (props) => {
   };
   const Picked = () => {
     return (
-      <div className="app">
+      <div>
         <Box sx={{ width: "100%" }}>
           <Stepper activeStep={1} alternativeLabel>
             {steps.map((label) => (
@@ -50,7 +72,7 @@ const ShowStatus = (props) => {
   };
   const Donated = () => {
     return (
-      <div className="app">
+      <div>
         <Box sx={{ width: "100%" }}>
           <Stepper activeStep={2} alternativeLabel>
             {steps.map((label) => (
@@ -66,7 +88,7 @@ const ShowStatus = (props) => {
   };
   const Completed = () => {
     return (
-      <div className="app">
+      <div>
         <Box sx={{ width: "100%" }}>
           <Stepper activeStep={3} alternativeLabel>
             {steps.map((label) => (
@@ -82,7 +104,9 @@ const ShowStatus = (props) => {
   };
 
   return (
-    <div>
+    <div className="app">
+      <h1>{employee}</h1>
+      <h1>Status</h1>
       {(() => {
         if (state === 200) {
           return <Initiated />;
