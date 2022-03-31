@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 import Box from "@mui/material/Box";
@@ -8,20 +8,24 @@ import StepLabel from "@mui/material/StepLabel";
 
 const ShowStatus = (props) => {
   const { state } = useLocation();
+  const id = state._id;
   const [employee, setEmployee] = useState([]);
 
   const employeedetails = async () => {
     try {
-      const res = await fetch("/donationinprogress", {
-        method: "GET",
+      const res = await fetch("/dispstatus", {
+        method: "POST",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
         credentials: "include",
+        body: JSON.stringify({
+          id,
+        }),
       });
       const data = await res.json();
-      console.log(data);
+      setEmployee(data);
     } catch (err) {
       console.log(err);
     }
@@ -103,21 +107,38 @@ const ShowStatus = (props) => {
     );
   };
 
+  const dispemployeename = employee.map((info) => {
+    return info.employees.map((i) => {
+      return i.name;
+    });
+  });
+  const dispemployeephone = employee.map((info) => {
+    return info.employees.map((i) => {
+      return i.phone;
+    });
+  });
+
   return (
     <div className="app">
-      <h1>{employee}</h1>
-      <h1>Status</h1>
-      {(() => {
-        if (state === 200) {
-          return <Initiated />;
-        } else if (state === 201) {
-          return <Picked />;
-        } else if (state === 202) {
-          return <Donated />;
-        } else if (state === 203) {
-          return <Completed />;
-        }
-      })()}
+      <div className="empdetail">
+        <h1>Assigned Employee</h1>
+        <h5>Name: {dispemployeename}</h5>
+        <h5>Phone: {dispemployeephone}</h5>
+      </div>
+      <div className="statusdetail">
+        <h1>Status</h1>
+        {(() => {
+          if (state.status === 200) {
+            return <Initiated />;
+          } else if (state.status === 201) {
+            return <Picked />;
+          } else if (state.status === 202) {
+            return <Donated />;
+          } else if (state.status === 203) {
+            return <Completed />;
+          }
+        })()}
+      </div>
     </div>
   );
 };

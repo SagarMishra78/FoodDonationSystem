@@ -204,6 +204,14 @@ router.get("/donationinprogress", async (req, res) => {
   });
 });
 
+router.post("/dispstatus", async (req, res) => {
+  const {id} = req.body;
+  Item.find({_id:id}, function (err, reqs) {
+    if (err) console.log(err);
+    res.send(reqs);
+  });
+});
+
 // Update Status
 router.post("/updatestatus", async (req, res) => {
   try {

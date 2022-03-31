@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "@material-ui/core";
-import PendingIcon from '@mui/icons-material/Pending';
+import PendingIcon from "@mui/icons-material/Pending";
 import Stack from "@mui/material/Stack";
 import { useNavigate } from "react-router-dom";
 
@@ -45,8 +45,8 @@ const OngoingDonation = (props) => {
       }),
     });
     await res.json();
-    Navigate("/showstatus", { state: res.status });
-  }
+    Navigate("/showstatus", { state: { status: res.status, _id: id } });
+  };
 
   const DisplayData = requests.map((info, i) => {
     return (
