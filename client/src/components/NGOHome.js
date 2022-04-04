@@ -43,8 +43,7 @@ const NGOHome = () => {
           <div className="card-body">
             <h5 className="card-title">Request Donation</h5>
             <p className="card-text">
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
+              Make a request for donation from Restraunts, when it will be confirmed you will get notified!
             </p>
             <Link className="btn btn-primary" to={"/RequestDonationModal"}>
               Request
@@ -55,8 +54,7 @@ const NGOHome = () => {
           <div className="card-body">
             <h5 className="card-title">Assign Employee</h5>
             <p className="card-text">
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
+              Assign donation employee who will collect food from Restraunt and make donation to needy!
             </p>
             <Link className="btn btn-primary" to={"/ongoingdonationngo"}>
               Assign
@@ -67,10 +65,9 @@ const NGOHome = () => {
           <div className="card-body">
             <h5 className="card-title">Donation Status</h5>
             <p className="card-text">
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
+              Check on-going donation status here, updated by donation employee!
             </p>
-            <Link className="btn btn-primary" to={"/"}>
+            <Link className="btn btn-primary" to={"/ongoingdonation"}>
               Track
             </Link>
           </div>

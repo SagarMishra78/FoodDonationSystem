@@ -102,6 +102,30 @@ router.post("/signin", async (req, res) => {
   }
 });
 
+// Update User Profile
+router.post("/updateprofile", authenticate, async (req, res) => {
+  const user = await Register.findById(req.rootUser);
+  if (user) {
+    user.name = req.body.name || user.name;
+    user.email = req.body.email || user.email;
+    user.phone = req.body.phone || user.phone;
+    user.address = req.body.address || user.address;
+    if (req.body.password) {
+      user.password = req.body.password;
+    }
+    const updateduser = await user.save();
+
+    res.json({
+      _id: updateduser._id,
+      name: updateduser.name,
+      email: updateduser.email,
+      phone: updateduser.phone,
+    });
+  } else {
+    res.status(404).json({ Error: "User not Found" });
+  }
+});
+
 // About Page
 router.get("/about", authenticate, (req, res) => {
   res.send(req.rootUser);
@@ -205,8 +229,8 @@ router.get("/donationinprogress", async (req, res) => {
 });
 
 router.post("/dispstatus", async (req, res) => {
-  const {id} = req.body;
-  Item.find({_id:id}, function (err, reqs) {
+  const { id } = req.body;
+  Item.find({ _id: id }, function (err, reqs) {
     if (err) console.log(err);
     res.send(reqs);
   });
@@ -264,7 +288,6 @@ router.post("/displaystatus", async (req, res) => {
     console.log(error);
   }
 });
-
 
 // Logout
 router.get("/signout", authenticate, async (req, res) => {

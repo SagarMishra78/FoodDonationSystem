@@ -25,6 +25,7 @@ import ShowStatus from "./components/ShowStatus";
 import OngoingDonationNgo from "./components/OngoingDonationNgo";
 import AssignEmployeeModal from "./components/AssignEmployeeModal";
 import EmployeeDetails from "./components/EmployeeDetails";
+import UserProfile from "./components/UserProfile";
 
 export const userContext = createContext();
 
@@ -56,6 +57,7 @@ const App = () => {
           <Route exact path="/showstatus" element={<ShowStatus />} />
           <Route exact path="/assignemployeemodal" element={<AssignEmployeeModal />} />
           <Route exact path="/employeedetails" element={<EmployeeDetails />} />
+          <Route exact path="/userprofile" element={<UserProfile />} />
           <Route
             exact
             path="/confirmdonationmodal"

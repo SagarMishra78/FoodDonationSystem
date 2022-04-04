@@ -43,8 +43,7 @@ const RestrauntHome = () => {
           <div className="card-body">
             <h5 className="card-title">Confirm Donation</h5>
             <p className="card-text">
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
+              Confirm the donations made by NGOs and fill in some details for donation!
             </p>
             <Link className="btn btn-primary" to={"/ConfirmDonation"}>
               Confirm
@@ -55,10 +54,9 @@ const RestrauntHome = () => {
           <div className="card-body">
             <h5 className="card-title">Donation Status</h5>
             <p className="card-text">
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
+              Check on-going donation status here, updated by donation employee!
             </p>
-            <Link className="btn btn-primary" to={"/"}>
+            <Link className="btn btn-primary" to={"/ongoingdonation"}>
               Track
             </Link>
           </div>

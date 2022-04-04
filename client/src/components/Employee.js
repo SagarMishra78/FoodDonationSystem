@@ -43,8 +43,7 @@ const Employee = () => {
           <div className="card-body">
             <h5 className="card-title">Donation Assigned</h5>
             <p className="card-text">
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
+              Check assigned donations here and update the status for on-going donations!
             </p>
             <Link className="btn btn-primary" to={"/ongoingdonationemp"}>
               Donations
