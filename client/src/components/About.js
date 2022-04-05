@@ -35,8 +35,8 @@ const About = () => {
             </Carousel.Caption>
           </Carousel.Item>
         </Carousel>
-        <h2 class="impact_heading">Our Work</h2>
-        <div class="col-md-8 col-sm-8 col-xs-12 project_all_content">
+        <h2 className="impact_heading">Our Work</h2>
+        <div className="col-md-8 col-sm-8 col-xs-12 project_all_content">
           <p>
             In 2001, the Supreme Court passed an order stating "A basic
             entitlement of every child in every Government and
@@ -83,7 +83,7 @@ const About = () => {
               through fundraising.
             </li>
           </ul>
-          <h3 class="project_content_orange">
+          <h3 className="project_content_orange">
             <b>The objectives of the scheme are:</b>
           </h3>
           <ul>
@@ -111,8 +111,8 @@ const About = () => {
             We aim to provide the children with 'satvik ahaar' that helps them
             with the right nutrition in their formative years.
           </p>
-          <div class="project_all_content our_meals">
-            <h2 class="impact_heading">Our Meals</h2>
+          <div className="project_all_content our_meals">
+            <h2 className="impact_heading">Our Meals</h2>
             <p>
               The recipients of the mid day meal primarily consist of children
               from slum and tribal areas. For many the food we provide may be

@@ -126,11 +126,6 @@ router.post("/updateprofile", authenticate, async (req, res) => {
   }
 });
 
-// About Page
-router.get("/about", authenticate, (req, res) => {
-  res.send(req.rootUser);
-});
-
 // Getting Data
 router.get("/getdata", authenticate, (req, res) => {
   res.send(req.rootUser);
