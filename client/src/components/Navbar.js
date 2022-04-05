@@ -35,6 +35,11 @@ const Navbar = () => {
               Sign Out
             </NavLink>
           </li>
+          <li className="nav-item">
+            <NavLink to="/blog" className="nav-link">
+              Blog
+            </NavLink>
+          </li>
         </>
       );
     } else {
@@ -63,6 +68,11 @@ const Navbar = () => {
           <li className="nav-item">
             <NavLink to="/signup" className="nav-link">
               Sign Up
+            </NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink to="/blog" className="nav-link">
+              Blog
             </NavLink>
           </li>
         </>
