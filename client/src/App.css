@@ -399,7 +399,7 @@ Button#sbtbtm[disabled] {
   background-position: center;
 }
 
-/* Blog */
+/* Write Blog */
 .write {
   padding-top: 5px;
   height: 91vh;
@@ -471,4 +471,11 @@ Button#sbtbtm[disabled] {
   cursor: pointer;
   display: flex;
   align-items: center;
+}
+
+/* Read Blog */
+.blog-card {
+  float: left;
+  padding: 10px;
+  width: 25%;
 }

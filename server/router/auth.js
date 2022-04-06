@@ -18,6 +18,7 @@ const Otp = require("../model/otp");
 const Contact = require("../model/usercontact");
 const Request = require("../model/requestFood");
 const Item = require("../model/fooditem");
+const Blog = require("../model/blog");
 
 // Home Page
 router.get("/", (req, res) => {
@@ -192,6 +193,30 @@ router.post("/contact", async (req, res) => {
   } catch (error) {
     console.log(error);
   }
+});
+
+// Blog
+router.post("/blog", async (req, res) => {
+  try {
+    const { title, content } = req.body;
+    if (!title || !content) {
+      res.json({ error: "Please fill details" });
+    } else {
+      const blogUpdate = new Blog({});
+      await blogUpdate.addblog(title, content);
+      await blogUpdate.save();
+      res.status(201).json({ message: "Blog Published" });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+router.get("/getblog", async (req, res) => {
+  Blog.find({}, function (err, blogs) {
+    if (err) console.log(err);
+    res.send(blogs);
+  });
 });
 
 // Items Page
