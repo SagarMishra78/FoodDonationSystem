@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Fab from "@mui/material/Fab";
-import AddIcon from '@mui/icons-material/Add';
+import AddIcon from "@mui/icons-material/Add";
 
-const ReadBlog = () => {
+const ReadBlog = (props) => {
   const Navigate = useNavigate();
   const [data, setData] = useState([]);
   const callBlogDetails = async () => {
@@ -25,7 +24,6 @@ const ReadBlog = () => {
       });
       const blogs = await res.json();
       setData(blogs);
-      console.log(blogs);
     } catch (err) {
       console.log(err);
     }
@@ -36,42 +34,57 @@ const ReadBlog = () => {
   });
 
   const fabStyle = {
-    position: "absolute",
-    bottom: 16,
-    right: 16,
+    position: "relative",
+    bottom: 70,
+    left: 1250,
   };
 
   const writeBlog = () => {
     Navigate("/writeblog");
-  }
+  };
+
+  const viewBlog = (e) => {
+    let id = e.currentTarget.id;
+    Navigate("/blogmodal", { state: id });
+  };
 
   const DisplayBlog = data.map((info) => {
-    return info.blogs.map((i) => {
-      return (
-        <div className="blog-card">
-          <Card sx={{ maxWidth: 345 }}>
-            <CardMedia
-              component="img"
-              height="140"
-              image="https://media.istockphoto.com/vectors/food-donation-and-charity-vector-id1224414210?k=20&m=1224414210&s=612x612&w=0&h=FhZYeea62Eh_7OM74djnSdkRBSq0kpeloV3SnyTiSpE="
-              alt="green iguana"
-            />
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
-                {i.title}
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                {i.content}
-              </Typography>
-            </CardContent>
-            <CardActions>
-              <Button size="small">Share</Button>
-              <Button size="small">Learn More</Button>
-            </CardActions>
-          </Card>
-        </div>
-      );
-    });
+    return (
+      <div className="blog-card" key={info._id}>
+        <Card className="blogCard" sx={{ maxWidth: 345 }}>
+          <CardContent>
+            <Typography
+              className="blogTitle"
+              gutterBottom
+              variant="h5"
+              component="div"
+            >
+              {info.title}
+            </Typography>
+            <Typography
+              className="blogContent"
+              variant="body2"
+              color="text.secondary"
+            >
+              {info.content}
+            </Typography>
+            <Typography className="blogDate" variant="subtitle2" color="red">
+              {info.date}
+            </Typography>
+          </CardContent>
+          <CardActions>
+            <Button
+              className="viewButton"
+              variant="contained"
+              size="small"
+              onClick={viewBlog}
+            >
+              View
+            </Button>
+          </CardActions>
+        </Card>
+      </div>
+    );
   });
 
   return (

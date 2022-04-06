@@ -430,6 +430,7 @@ Button#sbtbtm[disabled] {
 .writeFormGroup {
   margin: 10px;
   display: flex;
+  flex-direction: column;
   align-items: center;
 }
 
@@ -478,4 +479,28 @@ Button#sbtbtm[disabled] {
   float: left;
   padding: 10px;
   width: 25%;
+}
+
+.blogCard {
+  display: flex;
+  flex-direction: column;
+  border: solid black;
+  height: 41vh;
+}
+
+.blogTitle {
+  padding-bottom: 15px;
+}
+
+.blogContent {
+  padding-top: 15px;
+  overflow: hidden;
+  word-wrap: break-word;
+  display: -webkit-box;
+   -webkit-line-clamp: 3;
+   -webkit-box-orient: vertical;
+}
+
+.blogDate {
+  padding-top: 15px;
 }

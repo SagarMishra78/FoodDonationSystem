@@ -28,6 +28,7 @@ import EmployeeDetails from "./components/EmployeeDetails";
 import UserProfile from "./components/UserProfile";
 import WriteBlog from "./components/WriteBlog";
 import ReadBlog from "./components/ReadBlog";
+import BlogModal from "./components/BlogModal";
 
 export const userContext = createContext();
 
@@ -62,6 +63,7 @@ const App = () => {
           <Route exact path="/userprofile" element={<UserProfile />} />
           <Route exact path="/writeblog" element={<WriteBlog />} />
           <Route exact path="/readblog" element={<ReadBlog />} />
+          <Route exact path="/blogmodal" element={<BlogModal />} />
           <Route
             exact
             path="/confirmdonationmodal"

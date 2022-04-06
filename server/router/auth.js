@@ -202,8 +202,10 @@ router.post("/blog", async (req, res) => {
     if (!title || !content) {
       res.json({ error: "Please fill details" });
     } else {
-      const blogUpdate = new Blog({});
-      await blogUpdate.addblog(title, content);
+      const blogUpdate = new Blog({
+        title,
+        content,
+      });
       await blogUpdate.save();
       res.status(201).json({ message: "Blog Published" });
     }
