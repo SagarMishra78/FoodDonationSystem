@@ -4,12 +4,24 @@ import Fab from "@mui/material/Fab";
 import EditIcon from "@mui/icons-material/Edit";
 import { FormControl, InputGroup } from "react-bootstrap";
 import { Link } from "react-router-dom";
-
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-toast.configure();
+// toast.configure();
+import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
+import { styled } from "@mui/material/styles";
 
-export default function UserProfile() {
+const BootstrapTooltip = styled(({ className, ...props }) => (
+  <Tooltip {...props} arrow classes={{ popper: className }} />
+))(({ theme }) => ({
+  [`& .${tooltipClasses.arrow}`]: {
+    color: theme.palette.common.black,
+  },
+  [`& .${tooltipClasses.tooltip}`]: {
+    backgroundColor: theme.palette.common.black,
+  },
+}));
+
+const UserProfile = () => {
   const [userData, setuserData] = React.useState([]);
   const [values, setValues] = React.useState({
     name: "",
@@ -92,14 +104,16 @@ export default function UserProfile() {
       <div className="Profile">
         <form className="profile" onSubmit={handleSubmit}>
           <h1 style={{ marginBottom: "100px" }}>Account Information</h1>
-          <Fab
-            sx={fabStyle}
-            color="secondary"
-            aria-label="edit"
-            onClick={handleEdit}
-          >
-            <EditIcon />
-          </Fab>
+          <BootstrapTooltip title="Edit Profile" color="primary">
+            <Fab
+              sx={fabStyle}
+              color="secondary"
+              aria-label="edit"
+              onClick={handleEdit}
+            >
+              <EditIcon />
+            </Fab>
+          </BootstrapTooltip>
           <Box
             component="form"
             sx={{
@@ -175,7 +189,9 @@ export default function UserProfile() {
                 onChange={onChange}
               />
             </InputGroup>
-            <p>Reset Password? <Link to={"/resetpassword"}>Click here</Link></p>
+            <p>
+              Reset Password? <Link to={"/resetpassword"}>Click here</Link>
+            </p>
           </Box>
           <button
             disabled={disabled}
@@ -190,3 +206,5 @@ export default function UserProfile() {
     </>
   );
 }
+
+export default UserProfile;

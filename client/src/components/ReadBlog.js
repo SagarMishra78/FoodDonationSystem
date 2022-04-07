@@ -8,6 +8,19 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
+import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
+import { styled } from '@mui/material/styles';
+
+const BootstrapTooltip = styled(({ className, ...props }) => (
+  <Tooltip {...props} arrow classes={{ popper: className }} />
+))(({ theme }) => ({
+  [`& .${tooltipClasses.arrow}`]: {
+    color: theme.palette.common.black,
+  },
+  [`& .${tooltipClasses.tooltip}`]: {
+    backgroundColor: theme.palette.common.black,
+  },
+}));
 
 const ReadBlog = (props) => {
   const Navigate = useNavigate();
@@ -89,20 +102,23 @@ const ReadBlog = (props) => {
 
   return (
     <>
-      <Fab
-        sx={fabStyle}
-        color="secondary"
-        aria-label="edit"
-        onClick={writeBlog}
-      >
-        <AddIcon />
-      </Fab>
+      <BootstrapTooltip title="Write Blog" color="primary">
+        <Fab
+          sx={fabStyle}
+          color="secondary"
+          aria-label="edit"
+          onClick={writeBlog}
+        >
+          <AddIcon />
+        </Fab>
+      </BootstrapTooltip>
       <img
         style={{ marginTop: "10px" }}
         className="writeImg"
         src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcZeyNFf52IT6Ki4804wopnd6a6tTKPe0mzw&usqp=CAU"
         alt=""
       />
+      <h1>Blogs</h1>
       <div>{DisplayBlog}</div>
     </>
   );

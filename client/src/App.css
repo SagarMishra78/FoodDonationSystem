@@ -485,11 +485,15 @@ Button#sbtbtm[disabled] {
   display: flex;
   flex-direction: column;
   border: solid black;
-  height: 41vh;
+  height: 44vh;
 }
 
 .blogTitle {
-  padding-bottom: 15px;
+  height: 62px;
+  overflow: hidden;
+  display: -webkit-box;
+   -webkit-line-clamp: 2;
+   -webkit-box-orient: vertical;
 }
 
 .blogContent {
