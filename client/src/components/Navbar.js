@@ -11,11 +11,6 @@ const Navbar = () => {
       return (
         <>
           <li className="nav-item">
-            <NavLink className="nav-link active" aria-current="page" to="/">
-              Home
-            </NavLink>
-          </li>
-          <li className="nav-item">
             <NavLink className="nav-link" to="/about">
               About Us
             </NavLink>

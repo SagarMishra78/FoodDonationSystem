@@ -35,7 +35,7 @@ const Employee = () => {
         </Carousel.Item>
       </Carousel>
 
-      <h1>Charity Employee</h1>
+      <h1>Great to see you back!</h1>
 
       {/* Card */}
       <div className="btncard">

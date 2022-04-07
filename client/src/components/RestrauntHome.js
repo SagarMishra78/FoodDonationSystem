@@ -35,7 +35,7 @@ const RestrauntHome = () => {
         </Carousel.Item>
       </Carousel>
 
-      <h1>Restraunt</h1>
+      <h1>Great to see you back!</h1>
 
       {/* Card */}
       <div className="btncard">
