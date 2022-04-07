@@ -3,6 +3,8 @@ import "bootstrap/dist/css/bootstrap.css";
 import { NavLink } from "react-router-dom";
 import { userContext } from "../App";
 
+import logo from "../images/logo.jpg";
+
 const Navbar = () => {
   const { state } = useContext(userContext);
 
@@ -77,10 +79,11 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <nav className="navbar navbar-expand-lg navbar-light bg-light" style={{height:"65px"}}>
         <div className="container-fluid">
           <NavLink className="navbar-brand" to="#">
-            Navbar
+            <img className="logo" src={logo} alt="Logo" />
+            {" "}अन्नदान
           </NavLink>
           <button
             className="navbar-toggler"

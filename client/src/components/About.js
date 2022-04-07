@@ -10,7 +10,7 @@ import img3 from "../images/carousel-3.jpg";
 const About = () => {
   return (
     <>
-      <div className="app2" style={{alignItems: "center"}}>
+      <div className="app2" style={{ alignItems: "center" }}>
         <Carousel fade>
           <Carousel.Item>
             <img className="d-block w-100" src={img1} alt="First slide" />
@@ -35,14 +35,18 @@ const About = () => {
             </Carousel.Caption>
           </Carousel.Item>
         </Carousel>
-        <h2 className="impact_heading">Our Work</h2>
-        <div className="col-md-8 col-sm-8 col-xs-12 project_all_content">
+        <div className="col-md-8 col-sm-8 col-xs-12 project_all_content" style={{width:"100%"}}>
+          <h2 className="impact_heading">
+            <b>Why Donate?</b>
+          </h2>
           <p>
-            In 2001, the Supreme Court passed an order stating "A basic
-            entitlement of every child in every Government and
-            Government-assisted Primary Schools with a prepared mid day meal
-            with a minimum content of 300 calories and 8–12 grams of protein
-            each day of school for a minimum of 200 days."
+            Sustainability. We should work to reduce the harm we inflict on our
+            environment. That 40% wasted is more than just the food you see on
+            the table. It's the hours spent growing, nurturing and maintaining
+            the food that's wasted too. By donating your extras, you're choosing
+            a different route. Help others. There are other people who could use
+            that food. Your leftovers could potentially be the only thing they
+            eat that day.
           </p>
           <p>
             The mid day meal Scheme is a school meal program of the Government
@@ -84,12 +88,17 @@ const About = () => {
             </li>
           </ul>
           <h3 className="project_content_orange">
-            <b>The objectives of the scheme are:</b>
+            <b>How?</b>
           </h3>
           <ul>
             <li>
-              Improve the effectiveness of primary education by improving the
-              nutritional status of children thereby reducing malnutrition.
+              Plan ahead. If you want to donate your food then you should do
+              your best to plan ahead. Get in touch with a local organization
+              before your event and organize a pick-up. Research and ask around
+              to find the best fit for you. Take action. If you didn't plan
+              ahead, that's okay. If you start to notice you will have extras,
+              start researching option. That might mean personally delivering
+              your extras to the local homeless shelter.
             </li>
             <li>
               Attract children from disadvantaged sections, especially girls
@@ -112,15 +121,15 @@ const About = () => {
             with the right nutrition in their formative years.
           </p>
           <div className="project_all_content our_meals">
-            <h2 className="impact_heading">Our Meals</h2>
+            <h2 className="impact_heading">What's Next?</h2>
             <p>
-              The recipients of the mid day meal primarily consist of children
-              from slum and tribal areas. For many the food we provide may be
-              the only meal they receive during the entire day. So, we strive to
-              ensure that the mid day meal is healthy, nutritious and packed
-              with all the important fibers, vitamins and nutrients required for
-              the healthy growth of the child. Our food is customized as per the
-              regional or local taste and provisions by the government.
+              Talk about it. After you've successfully donated your food and set
+              up a system to continue doing so, tell people about it! Inform
+              your customers, co-workers, business partners, everyone! Let
+              people know what you did, how you did it, and why it was so easy.
+              The more you tell others, the better for everyone. Your company
+              will build a respectable reputation while working to improve the
+              environment and local communities. It's a no-brainer.
             </p>
           </div>
         </div>

@@ -122,6 +122,12 @@ h1 {
   text-align: center;
 }
 
+.logo {
+  position: relative;
+  height: 65px;
+  width: 65px;
+}
+
 button {
   width: 100%;
   height: 50px;
@@ -492,8 +498,8 @@ Button#sbtbtm[disabled] {
   height: 62px;
   overflow: hidden;
   display: -webkit-box;
-   -webkit-line-clamp: 2;
-   -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
 .blogContent {
@@ -501,8 +507,8 @@ Button#sbtbtm[disabled] {
   overflow: hidden;
   word-wrap: break-word;
   display: -webkit-box;
-   -webkit-line-clamp: 3;
-   -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 }
 
 .blogDate {
