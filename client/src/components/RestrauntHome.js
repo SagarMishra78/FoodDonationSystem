@@ -57,7 +57,7 @@ const RestrauntHome = () => {
               Check on-going donation status here, updated by donation employee!
             </p>
             <Link className="btn btn-primary" to={"/ongoingdonation"}>
-              Track
+              Status
             </Link>
           </div>
         </div>

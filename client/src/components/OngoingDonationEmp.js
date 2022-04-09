@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "@material-ui/core";
 import PendingIcon from "@mui/icons-material/Pending";
+import DeleteIcon from "@mui/icons-material/Delete";
 import Stack from "@mui/material/Stack";
 import { useNavigate } from "react-router-dom";
 
@@ -38,6 +39,28 @@ const OngoingDonationEmp = (props) => {
     Navigate("/donationstatus", { state: id });
   };
 
+  const handleDelete = async (e) => {
+    let id = e.currentTarget.id;
+
+    const res = await fetch("/deletedonation", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id,
+      }),
+    });
+    await res.json();
+    if (res.status === 200) {
+      toast.success("Deleted!", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: true,
+        hideProgressBar: true,
+      });
+    }
+  };
+
   const DisplayData = requests.map((info, i) => {
     return (
       <tr key={i}>
@@ -55,6 +78,15 @@ const OngoingDonationEmp = (props) => {
               onClick={donationStatus}
             >
               Update Status
+            </Button>
+            <Button
+              className="btnconfirm"
+              variant="contained"
+              endIcon={<DeleteIcon />}
+              id={info._id}
+              onClick={handleDelete}
+            >
+              Delete
             </Button>
           </Stack>
         </td>

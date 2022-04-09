@@ -6,7 +6,7 @@ const Blog = (props) => {
     const id = state;
     console.log(id);
   return (
-    <div>Sagar</div>
+    <div></div>
   )
 }
 

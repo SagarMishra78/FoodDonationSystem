@@ -173,6 +173,18 @@ router.post("/delete", async (req, res) => {
   });
 });
 
+// Delete ongoing donation
+router.post("/deletedonation", async (req, res) => {
+  const { id } = req.body;
+  Item.findByIdAndRemove(id, (err, doc) => {
+    if (!err) {
+      res.json({ message: "Deleted" });
+    } else {
+      console.log("Failed to Delete user Details: " + err);
+    }
+  });
+});
+
 // Contact Page
 router.post("/contact", async (req, res) => {
   try {
