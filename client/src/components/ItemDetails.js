@@ -1,17 +1,21 @@
 import { useState } from "react";
 import FormInput from "./FormInput";
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 toast.configure();
 
 const ItemDetails = () => {
+  const { state } = useLocation();
+  const ids = state;
   const Navigate = useNavigate();
   const [values, setValues] = useState({
     name: "",
     address: "",
     phone: "",
     items: "",
+    id: ids,
   });
 
   const namepattern = "^[A-Za-z A-Za-z]{3,16}$";
@@ -66,7 +70,7 @@ const ItemDetails = () => {
   };
 
   const postData = async () => {
-    const { name, address, phone, items } = values;
+    const { name, address, phone, items, id } = values;
 
     const res = await fetch("/fooditem", {
       method: "POST",
@@ -82,12 +86,21 @@ const ItemDetails = () => {
     });
     await res.json();
     if (res.status === 201) {
-      toast.success("Confirmed", {
+      toast.success("Confirmed!", {
         position: toast.POSITION.TOP_CENTER,
         autoClose: true,
         hideProgressBar: true,
       });
-      Navigate("/confirmdonation")
+      await fetch("/delete", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id,
+        }),
+      });
+      Navigate("/confirmdonation");
     } else {
       toast.error("Something went Wrong", {
         position: toast.POSITION.TOP_CENTER,
@@ -112,8 +125,7 @@ const ItemDetails = () => {
         ))}
         <button
           disabled={
-            !values.name.match(namepattern) ||
-            !values.phone.match(phonepattern)
+            !values.name.match(namepattern) || !values.phone.match(phonepattern)
           }
           id="sbtbtm"
           className="buttonLR"
