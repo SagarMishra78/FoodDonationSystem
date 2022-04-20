@@ -491,7 +491,7 @@ Button#sbtbtm[disabled] {
   display: flex;
   flex-direction: column;
   border: solid black;
-  height: 44vh;
+  height: fit-content;
 }
 
 .blogTitle {
